@@ -358,3 +358,5 @@ public:
 C++ offers high performance, deterministic execution, direct memory control, and is ideal for system-level and real-time applications.
 
 ---
+- for further clarity on above topic pls visit these [notes](./31-1-2026/). 
+--- 

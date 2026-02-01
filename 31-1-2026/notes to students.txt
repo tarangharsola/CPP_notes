@@ -1,0 +1,188 @@
+// ============================================
+// LESSON 1: HELLO WORLD - Compilation Model
+// ============================================
+
+/*
+ KEY DIFFERENCES FROM JAVA:
+ 1. No class required for main()
+ 2. Uses #include for libraries (not import)
+ 3. Compilation is separate from running
+ 4. cout instead of System.out.println
+ */
+
+#include <iostream>  // Like import java.io.* - brings in input/output
+using namespace std; // Avoid writing std:: before cout, cin, etc.
+
+int main() {
+    // main() returns int (exit status), not void like Java
+    cout << "Hello, World!" << endl;
+    // cout = console output (like System.out)
+    // << = output operator (think of it as "send to")
+    // endl = end line (like \n + flush)
+    
+    
+    return 0;  // 0 means success (convention from C/Unix)
+}
+
+/*
+ COMPILATION PROCESS:
+ 
+ Java: javac Hello.java → Hello.class → java Hello
+ C++:  g++ hello.cpp -o hello → ./hello
+ 
+ - C++ compiles directly to machine code (no bytecode)
+ - The executable is platform-specific
+ - Compilation is typically slower, but execution is faster
+ */
+
+
+ 
+
+============================================
+ LESSON 2: INPUT - Different Data Types
+ ============================================
+
+#include <iostream>
+#include <string>    // Needed for string type
+using namespace std;
+
+int main() {
+    // Declare variables - notice type comes first (like Java)
+    int age;
+    double gpa;
+    char grade;
+    string name;
+    bool isPassing;
+    
+    // INTEGERS
+    cout << "Enter your age: ";
+    cin >> age;  // cin = console input (like Scanner in Java)
+                 // >> = input operator (opposite of <<)
+    
+    // FLOATING POINT
+    cout << "Enter your GPA: ";
+    cin >> gpa;  // double works like Java's double
+    
+    // CHARACTERS
+    cout << "Enter your letter grade: ";
+    cin >> grade;  // char is a single character (like Java)
+    
+    // STRINGS (important difference!)
+    cout << "Enter your name: ";
+    cin.ignore();  // Clear the newline left by previous cin
+    getline(cin, name);  // Reads entire line including spaces
+    // Note: cin >> name would only read until first space
+    
+    // BOOLEAN
+    cout << "Are you passing? (1 for yes, 0 for no): ";
+    cin >> isPassing;  // In C++, bool values are true/false or 1/0
+    
+    // OUTPUT ALL VALUES
+    cout << "\n=== Your Information ===" << endl;
+    cout << "Name: " << name << endl;
+    cout << "Age: " << age << endl;
+    cout << "GPA: " << gpa << endl;
+    cout << "Grade: " << grade << endl;
+    cout << "Passing: " << (isPassing ? "Yes" : "No") << endl;
+    
+    return 0;
+}
+
+/*
+  KEY POINTS TO EMPHASIZE:
+  
+  1. PRIMITIVE TYPES (similar to Java):
+     - int, double, char, bool (not boolean!)
+    - float exists but double is more common
+  - short, long, long long for different integer sizes
+  
+  2. STRING TYPE (different from Java!):
+     - In Java: String is a class, always an object
+    - In C++: string is a class from STL (Standard Template Library)
+     - Need to #include <string>
+     - Can use like a primitive for basic operations
+  
+  3. INPUT DIFFERENCES:
+     - cin >> variable (like scanner.nextInt())
+     - getline(cin, string) (like scanner.nextLine())
+     - cin.ignore() needed to clear input buffer
+  
+ 4. NO SCANNER CLASS:
+    - Java: Scanner scanner = new Scanner(System.in)
+    - C++: cin is already available (from iostream)
+ 
+ 5. COMPILATION:
+    g++ input_example.cpp -o input_example
+    ./input_example
+ */
+// ============================================
+// C++-SPECIFIC DATA TYPES (Not in Java)
+// ============================================
+
+#include <iostream>
+using namespace std;
+
+void demonstrateCppTypes() {
+    // 1. UNSIGNED TYPES - no negative values, double the positive range
+    unsigned int positiveOnly = 4000000000;  // Java doesn't have unsigned
+    unsigned short smallPositive = 65000;
+    unsigned long bigPositive = 5000000000UL;
+    
+    // 2. SIZED INTEGER TYPES - explicit size control
+    long long veryBigNumber = 9223372036854775807LL;  // 64-bit guaranteed
+    short smallNumber = 32000;  // 16-bit
+    
+    // 3. POINTERS - memory addresses (Java hides these!)
+    int value = 42;
+    int* ptr = &value;  // ptr stores the memory address of value
+    // & = address-of operator
+    // * in declaration means "pointer to"
+    
+    cout << "Value: " << value << endl;
+    cout << "Address: " << ptr << endl;
+    cout << "Value via pointer: " << *ptr << endl;  // * = dereference
+    
+    // 4. REFERENCES - aliases to variables
+    int original = 100;
+    int& ref = original;  // ref is another name for original
+    ref = 200;  // This changes original too!
+    
+    cout << "Original: " << original << endl;  // Prints 200
+    
+    // 5. WCHAR_T - wide character for Unicode
+    wchar_t wideChar = L'€';  // For characters beyond ASCII
+    
+    // 6. SIZE_T - unsigned type for sizes (like array lengths)
+    size_t arraySize = 100;  // Always large enough for any object size
+}
+
+/*
+ DATA TYPE COMPARISON: C++ vs Java
+  
+  TYPES ONLY IN C++:
+  unsigned int, unsigned long, unsigned short, unsigned char
+  long long (64-bit integer, Java just has long)
+   Pointers (int*, char*, double*, etc.)
+  References (int&, string&, etc.)
+  size_t, wchar_t
+  
+ TYPES IN BOTH (but different):
+  - bool (not boolean)
+  - char 
+  
+ TYPE SIZES IN C++:
+  - char: 1 byte
+  - short: 2 bytes (usually)
+  - int: 4 bytes (usually)
+  - long: 4 or 8 bytes (platform-dependent!)
+  - long long: 8 bytes (guaranteed)
+  - float: 4 bytes
+  - double: 8 bytes
+  - pointer: 4 or 8 bytes (depends on architecture)
+  
+  Note: In Java, sizes are always the same. In C++, they can vary!
+ */
+
+
+
+
