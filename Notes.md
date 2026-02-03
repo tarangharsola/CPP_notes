@@ -433,4 +433,4 @@ int main() {
 ```cpp
 string s = "Hello World";
 ```
-for string methods and questions refer [here](./3-02-2026/test.cpp)
+for string methods and questions refer [here](./3-02-2026/)
