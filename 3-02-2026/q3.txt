@@ -1,0 +1,8 @@
+Problem:
+Reverse characters in each word but maintain word order.
+Examples:
+Input: "Let's take LeetCode contest"
+Output: "s'teL ekat edoCteeL tsetnoc"
+
+Input: "Hello World"
+Output: "olleH dlroW"

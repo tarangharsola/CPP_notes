@@ -5,7 +5,7 @@ s3: Hello World
 Size of s3: 11
 Length of s3: 11
 Is s3 empty? 0
-Capacity of s3: (implementation dependent)
+Capacity of s3: (varies)
 
 First char: H
 Last char: d
@@ -27,3 +27,11 @@ After replace: Hello Everyone!
 Apple comes before Banana
 
 After clear, is temp empty? 1
+
+Enter your full name: Tarang Harsola
+You entered: Tarang Harsola
+
+String to int: 123
+Int to string: 456
+
+C-style string: Hello Everyone!
