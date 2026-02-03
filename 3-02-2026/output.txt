@@ -1,0 +1,29 @@
+s1: Hello
+s2: World
+s3: Hello World
+
+Size of s3: 11
+Length of s3: 11
+Is s3 empty? 0
+Capacity of s3: (implementation dependent)
+
+First char: H
+Last char: d
+Char at index 1: e
+
+After append: Hello World!
+After push_back: Hello World!?
+After pop_back: Hello World!
+
+After insert: Hello C++ World!
+After erase: Hello World!
+
+Substring (0,5): Hello
+
+'World' found at position: 6
+
+After replace: Hello Everyone!
+
+Apple comes before Banana
+
+After clear, is temp empty? 1

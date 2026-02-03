@@ -424,3 +424,13 @@ int main() {
 ```
 5 4 3 2 1 6 7 8 9
 ```
+# String - 
+- Header - 
+```cpp
+#include <string>
+```
+- Declaration -
+```cpp
+string s = "Hello World";
+```
+for string methods refer [here](./3-02-2026/test.cpp)
