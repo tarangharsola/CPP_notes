@@ -353,3 +353,80 @@ C++ offers high performance, deterministic execution, direct memory control, and
 ---
 - for further clarity on above topic pls visit these [notes](./31-1-2026/). 
 --- 
+# Arrays- 
+### methods - 
+- 2 pointers 
+- sliding window 
+-
+- 
+___
+# Questions - 
+## Reverse of an array - 
+```cpp
+#include <iostream>
+using namespace std;
+
+int main() {
+    int arr[] = {1, 2, 3, 4, 5};
+    int n = 5;
+
+    int i = 0, j = n - 1;
+    while (i < j) {
+        int temp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = temp;
+        i++;
+        j--;
+    }
+
+    for (int k = 0; k < n; k++) {
+        cout << arr[k] << " ";
+    }
+    return 0;
+}
+```
+___
+## reversing group of k consicutive elements - 
+```cpp
+#include <iostream>
+using namespace std;
+
+void reverseK(int arr[], int n, int k) {
+    for (int i = 0; i < n; i += k) {
+        int left = i;
+        int right = i + k - 1;
+
+        if (right >= n)
+            right = n - 1;
+
+        while (left < right) {
+            int temp = arr[left];
+            arr[left] = arr[right];
+            arr[right] = temp;
+            left++;
+            right--;
+        }
+    }
+}
+
+int main() {
+    int arr[] = {1,2,3,4,5,6,7,8,9};
+    int n = 9;
+    int k = 4;
+
+    reverseK(arr, n, k);
+
+    for (int i = 0; i < n; i++) {
+        cout << arr[i] << " ";
+    }
+    return 0;
+}
+```
+input - 
+```
+1 2 3 4 5 6 7 8 9
+```
+output - 
+```
+4 3 2 1 8 7 6 5 9
+```
