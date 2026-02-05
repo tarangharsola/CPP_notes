@@ -1,0 +1,15 @@
+Group strings that are rotations of each other
+
+1. For each string, compute a canonical representative so all rotations map to the same key.
+2. Use a map from key → list of strings.
+3. Strings sharing the same key are rotation-equivalent.
+
+Sample Input:
+4
+abc
+bca
+acb
+cab
+Sample Output:
+abc bca cab
+acb

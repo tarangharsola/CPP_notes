@@ -1,0 +1,10 @@
+Find the rotation index that gives the smallest string
+1. For each cut position i, build the rotation.
+2. Keep the smallest rotation seen.
+3. Return the index i that produced it.
+
+
+Sample Input:
+baca  
+Sample Output:
+3

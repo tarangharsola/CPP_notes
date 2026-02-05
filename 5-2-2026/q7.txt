@@ -1,0 +1,9 @@
+Can the string become sorted after some rotations?
+1. Define what “sorted” means (usually non-decreasing lexicographic by characters).
+2. Generate each rotation and check if it is sorted.
+3. If any rotation is sorted → true.
+
+Sample Input:
+abc  
+Sample Output:
+true

@@ -1,0 +1,52 @@
+String Rotation - Scenario Question
+
+Problem: Security Password Rotation System
+You're building a security system where passwords are rotated daily for extra protection. 
+The system takes the original password and shifts some characters from the beginning to the end each day.
+Your manager asks you to:
+
+Verify if today's password is a valid rotation of yesterday's password
+Report how many positions it was shifted (for audit logs)
+
+If there's been a security breach (password changed incorrectly), report it.
+Write a function to check if the new password is a valid rotation and return the shift amount.
+
+Example 1: Valid Daily Rotation
+Input: 
+yesterday_password = "abcde"
+today_password = "cdeab"
+
+Output: (true, 2)
+
+Explanation: 
+The system moved "ab" (2 characters) from start to end.
+Valid rotation - shifted by 2 positions!
+
+Example 2: Security Breach Detected!
+Input: 
+yesterday_password = "abcde"
+today_password = "abced"
+
+Output: (false, -1)
+
+Explanation: 
+Letters are in wrong order - NOT a rotation!
+Return -1 to indicate breach.
+
+Example 3: No Rotation (Same Password)
+Input: 
+yesterday_password = "aa"
+today_password = "aa"
+
+Output: (true, 0)
+
+Explanation: 
+Password unchanged (or rotated by full length).
+Shifted by 0 positions.
+
+
+Constraints:
+
+Password length: 1 to 100 characters
+Passwords contain only lowercase English letters
+Both passwords must be same length to be valid rotations

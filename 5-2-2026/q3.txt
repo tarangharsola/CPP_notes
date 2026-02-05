@@ -1,0 +1,11 @@
+Lexicographically smallest rotation of a string
+1. Generate every rotation:
+For each cut position i, rotation = suffix starting at i + prefix ending at i-1.
+2. Keep the smallest rotation using lexicographic comparison.
+3. Return the best one.
+
+
+Sample Input:
+acb  
+Sample Output:
+acb

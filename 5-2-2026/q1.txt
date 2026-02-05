@@ -1,0 +1,21 @@
+Problem Statement:
+Given two strings s and goal, return true if goal is a rotation of s, otherwise return false.
+
+Example 1:
+Input: s = "abcde", goal = "cdeab"
+Output: true
+
+Example 2:
+Input: s = "abcde", goal = "abced"
+Output: false
+
+Example 3:
+Input: s = "aa", goal = "aa"
+Output: true
+
+
+
+Constraints:
+
+1 <= s.length, goal.length <= 100
+s and goal consist of lowercase English letters

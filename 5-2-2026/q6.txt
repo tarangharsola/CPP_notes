@@ -1,0 +1,11 @@
+Pattern exists in a circular string
+1. If pattern length > string length → usually false (depends on rules, but typical).
+2. Search pattern in s+s.
+3. If found within the first n start positions, then pattern occurs in some rotation.
+
+
+Sample Input:
+abcde
+cdeab  
+Sample Output:
+true

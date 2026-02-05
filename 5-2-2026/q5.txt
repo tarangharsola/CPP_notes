@@ -1,0 +1,10 @@
+Check if any rotation is a palindrome
+1. Generate each rotation.
+2. For each rotation, check palindrome:
+Two-pointer check from ends inward.
+3. If any rotation passes → true; else false.
+
+Sample Input:
+a  
+Sample Output:
+true

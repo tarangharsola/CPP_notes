@@ -1,0 +1,17 @@
+/*
+
+Minimum rotations needed to convert s into t
+
+How to
+1. If lengths differ → return -1.
+2. Search t inside s+s.
+3. If found at index idx, then minimum left rotations = idx (because shifting left by idx aligns it).
+4. If not found → -1.
+
+
+Sample Input:
+abcde
+cdeab  
+Sample Output:
+2
+*/

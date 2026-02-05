@@ -434,3 +434,10 @@ int main() {
 string s = "Hello World";
 ```
 for string methods and questions refer [here](./3-02-2026/)
+---
+## Rotation of Array - 
+Rotations can be done in 2 ways. They are - 
+- left shift 
+- right shift 
+___
+questions on these topics are [here](./5-2-2026/)
