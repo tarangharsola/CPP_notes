@@ -440,4 +440,8 @@ Rotations can be done in 2 ways. They are -
 - left shift 
 - right shift 
 ___
+It can be done in 3 way. they are - 
+- swapping 
+- creation of new array and play with  indexes
+- reverse of array 
 questions on these topics are [here](./5-2-2026/)
