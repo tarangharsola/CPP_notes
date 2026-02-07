@@ -1,0 +1,5 @@
+/*
+Create the medicine class Question: 
+Write the description of the class and indicate what does it do ?
+
+*/
