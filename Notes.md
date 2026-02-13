@@ -461,3 +461,5 @@ ___
 - a freind function needs to abstract inside the class.
 - the implementation of friend function needs to be outside the class.
 - while implimenting the function you will omit the keyword "friend".
+## Vectors - 
+for question on vector refer [here](./12-02-2026/vector/).
