@@ -1,0 +1,28 @@
+//You have a list of medicines arrange it in such a way that all expired 
+//medicines are at the end of the list
+
+
+#include <iostream>
+#include <chrono>
+#include <ctime>
+
+int main() {
+    // Define two time points (dates)
+    std::tm tm1 = {0, 0, 0, 1, 0, 110}; // Jan 1, 2010
+    std::tm tm2 = {0, 0, 0, 1, 1, 110}; // Feb 1, 2010
+
+    // Convert tm structures to time_t and then to std::chrono::system_clock::time_point
+    std::chrono::system_clock::time_point date1 = std::chrono::system_clock::from_time_t(std::mktime(&tm1));
+    std::chrono::system_clock::time_point date2 = std::chrono::system_clock::from_time_t(std::mktime(&tm2));
+
+    // Compare the dates
+    if (date1 < date2) {
+        std::cout << "Date 1 is earlier than Date 2" << std::endl;
+    } else if (date1 > date2) {
+        std::cout << "Date 1 is later than Date 2" << std::endl;
+    } else {
+        std::cout << "Date 1 and Date 2 are the same" << std::endl;
+    }
+
+    return 0;
+}
