@@ -474,7 +474,7 @@ ___
 ---
 ## Linked List - 
 - A linked list is defined as a collection of nodes where each node consists of two members which represents its value and a next/previous pointer which stores the address for the next/previous node.
-# Printing of linked list - 
+# Printing of linked list(varios operations on them) - 
 ```cpp
 #include <iostream>
 #include <string>
@@ -574,6 +574,66 @@ void insertBefore(Student* &head, int targetRoll, string name, int roll, float c
     newNode->next = temp;
 }
 
+void deleteAtStart(Student* &head) {
+    if (head == nullptr) {
+        cout << "List is empty!" << endl;
+        return;
+    }
+
+    Student* temp = head;
+    head = head->next;
+    delete temp;
+}
+
+void deleteAtEnd(Student* &head) {
+    if (head == nullptr) {
+        cout << "List is empty!" << endl;
+        return;
+    }
+
+    if (head->next == nullptr) {
+        delete head;
+        head = nullptr;
+        return;
+    }
+
+    Student* temp = head;
+    while (temp->next->next != nullptr)
+        temp = temp->next;
+
+    delete temp->next;
+    temp->next = nullptr;
+}
+
+void deleteByRoll(Student* &head, int targetRoll) {
+    if (head == nullptr) {
+        cout << "List is empty!" << endl;
+        return;
+    }
+
+    if (head->rollNumber == targetRoll) {
+        Student* temp = head;
+        head = head->next;
+        delete temp;
+        return;
+    }
+
+    Student* temp = head;
+    Student* prev = nullptr;
+
+    while (temp != nullptr && temp->rollNumber != targetRoll) {
+        prev = temp;
+        temp = temp->next;
+    }
+
+    if (temp == nullptr) {
+        cout << "Roll number not found!" << endl;
+        return;
+    }
+
+    prev->next = temp->next;
+    delete temp;
+}
 int main() {
 
     Student* s1 = new Student("Ram",101,8.5);
@@ -605,6 +665,19 @@ int main() {
     cout << endl << "After inserting BEFORE Roll 101:" << endl;
     insertBefore(head,101,"Mohan",99,9.3);
     printList(head);
+    
+    cout << endl << "After deleting at start:" << endl;
+    deleteAtStart(head);
+    printList(head);
+
+    cout << endl << "After deleting at end:" << endl;
+    deleteAtEnd(head);
+    printList(head);
+
+    cout << endl << "After deleting Roll 102:" << endl;
+    deleteByRoll(head,102);
+    printList(head);
+
 
     return 0;
 }
