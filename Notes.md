@@ -480,75 +480,8 @@ ___
 #include <string>
 using namespace std;
 
-struct Student {
-    string name;
-    int rollNumber;
-    float cgpa;
-    Student* next;
-};
-
-void printList(Student* head) {
-    Student* ptr = head;  // pointer pointing to start of linked list
-    while (ptr != nullptr) {
-        cout << "Name: " << ptr->name << ", Roll: " << ptr->rollNumber << ", CGPA: " << ptr->cgpa << endl;
-        ptr = ptr->next;
-    }
-}
-
-void printFirst(Student* head) {
-    Student* ptr = head;
-    cout << "First -> Name: " << ptr->name << ", Roll: " << ptr->rollNumber << ", CGPA: " << ptr->cgpa << endl;
-}
-
-void printLast(Student* head) {
-    Student* ptr = head;
-    while (ptr->next != nullptr)
-        ptr = ptr->next;
-    cout << "Last -> Name: " << ptr->name << ", Roll: " << ptr->rollNumber << ", CGPA: " << ptr->cgpa << endl;
-}
-
-void printAtPosition(Student* head, int pos) {
-    Student* ptr = head;
-    int count = 1;
-    while (ptr != nullptr) {
-        if (count == pos) {
-            cout << "Position " << pos << " -> Name: " << ptr->name << ", Roll: " << ptr->rollNumber << ", CGPA: " << ptr->cgpa << endl;
-            return;
-        }
-        ptr = ptr->next;
-        count++;
-    }
-    cout << "Position " << pos << " not found!" << endl;
-}
-
-int main() {
-    Student* s1 = new Student{"Alice",   101, 3.9, nullptr};
-    Student* s2 = new Student{"Bob",     102, 3.5, nullptr};
-    Student* s3 = new Student{"Charlie", 103, 3.7, nullptr};
-    Student* s4 = new Student{"Diana",   104, 3.2, nullptr};
-
-    s1->next = s2;
-    s2->next = s3;
-    s3->next = s4;
-
-    Student* head = s1;
-
-    printList(head);
-    printFirst(head);
-    printLast(head);
-    printAtPosition(head, 3);
-
-    return 0;
-}
-```
-___
-## Add at the end - 
-```cpp
-#include <iostream>
-#include <string>
-using namespace std;
-
-struct Student {
+class Student {
+public:
     string name;
     int rollNumber;
     float cgpa;
@@ -562,73 +495,15 @@ struct Student {
     }
 };
 
-void addAtEnd(Student* &head, string name, int roll, float cgpa) {
-    Student* newNode = new Student(name, roll, cgpa);
-    if (head == nullptr) {
-        head = newNode;
-        return;
-    }
-    Student* ptr = head;
-    while (ptr->next != nullptr)
-        ptr = ptr->next;
-    ptr->next = newNode;
-}
-
 void printList(Student* head) {
-    Student* ptr = head;
-    while (ptr != nullptr) {
-        cout << "Name: " << ptr->name << ", Roll: " << ptr->rollNumber << ", CGPA: " << ptr->cgpa << endl;
-        ptr = ptr->next;
+    Student* temp = head;
+    while (temp != nullptr) {
+        cout << "Name: " << temp->name
+             << ", Roll: " << temp->rollNumber
+             << ", CGPA: " << temp->cgpa << endl;
+        temp = temp->next;
     }
 }
-
-int main() {
-    Student* s1 = new Student("Alice",   101, 3.9);
-    Student* s2 = new Student("Bob",     102, 3.5);
-    Student* s3 = new Student("Charlie", 103, 3.7);
-    Student* s4 = new Student("Diana",   104, 3.2);
-
-    s1->next = s2;
-    s2->next = s3;
-    s3->next = s4;
-
-    Student* head = s1;
-
-    cout << "=== Before Adding ===" << endl;
-    printList(head);
-
-    addAtEnd(head, "Eve", 105, 3.8);
-
-    cout << "\n=== After Adding Eve at End ===" << endl;
-    printList(head);
-
-    return 0;
-}
-```
-___
-
-
-
-
-## Add at the Start - 
-```cpp
-#include <iostream>
-#include <string>
-using namespace std;
-
-struct Student {
-    string name;
-    int rollNumber;
-    float cgpa;
-    Student* next;
-
-    Student(string n, int r, float c) {
-        name = n;
-        rollNumber = r;
-        cgpa = c;
-        next = nullptr;
-    }
-};
 
 void addAtStart(Student* &head, string name, int roll, float cgpa) {
     Student* newNode = new Student(name, roll, cgpa);
@@ -636,19 +511,75 @@ void addAtStart(Student* &head, string name, int roll, float cgpa) {
     head = newNode;
 }
 
-void printList(Student* head) {
-    Student* ptr = head;
-    while (ptr != nullptr) {
-        cout << "Name: " << ptr->name << ", Roll: " << ptr->rollNumber << ", CGPA: " << ptr->cgpa << endl;
-        ptr = ptr->next;
+void addAtEnd(Student* &head, string name, int roll, float cgpa) {
+    Student* newNode = new Student(name, roll, cgpa);
+
+    if (head == nullptr) {
+        head = newNode;
+        return;
     }
+
+    Student* temp = head;
+    while (temp->next != nullptr)
+        temp = temp->next;
+
+    temp->next = newNode;
+}
+
+void insertAfter(Student* head, int targetRoll, string name, int roll, float cgpa) {
+    Student* temp = head;
+
+    while (temp != nullptr && temp->rollNumber != targetRoll)
+        temp = temp->next;
+
+    if (temp == nullptr) {
+        cout << "Roll number not found!" << endl;
+        return;
+    }
+
+    Student* newNode = new Student(name, roll, cgpa);
+    newNode->next = temp->next;
+    temp->next = newNode;
+}
+
+void insertBefore(Student* &head, int targetRoll, string name, int roll, float cgpa) {
+
+    if (head == nullptr) {
+        cout << "List is empty!" << endl;
+        return;
+    }
+
+    if (head->rollNumber == targetRoll) {
+        Student* newNode = new Student(name, roll, cgpa);
+        newNode->next = head;
+        head = newNode;
+        return;
+    }
+
+    Student* temp = head;
+    Student* prev = nullptr;
+
+    while (temp != nullptr && temp->rollNumber != targetRoll) {
+        prev = temp;
+        temp = temp->next;
+    }
+
+    if (temp == nullptr) {
+        cout << "Roll number not found!" << endl;
+        return;
+    }
+
+    Student* newNode = new Student(name, roll, cgpa);
+    prev->next = newNode;
+    newNode->next = temp;
 }
 
 int main() {
-    Student* s1 = new Student("Alice",   101, 3.9);
-    Student* s2 = new Student("Bob",     102, 3.5);
-    Student* s3 = new Student("Charlie", 103, 3.7);
-    Student* s4 = new Student("Diana",   104, 3.2);
+
+    Student* s1 = new Student("Ram",101,8.5);
+    Student* s2 = new Student("Shyam",102,9.5);
+    Student* s3 = new Student("Sita",103,8.7);
+    Student* s4 = new Student("Gita",104,9.2);
 
     s1->next = s2;
     s2->next = s3;
@@ -656,12 +587,23 @@ int main() {
 
     Student* head = s1;
 
-    cout << "=== Before Adding ===" << endl;
+    cout << "Original List:\n";
     printList(head);
 
-    addAtStart(head, "Eve", 100, 3.8);
+    cout << endl << "After adding at end:" << endl;
+    addAtEnd(head,"Ramesh",105,9.0);
+    printList(head);
 
-    cout << "\n=== After Adding Eve at Start ===" << endl;
+    cout << endl << "After adding at start:" << endl;
+    addAtStart(head, "Krishna", 100, 9.8);
+    printList(head);
+
+    cout << endl << "After inserting AFTER Roll 102:" << endl;
+    insertAfter(head,102,"Arjun",106,8.9);
+    printList(head);
+
+    cout << endl << "After inserting BEFORE Roll 101:" << endl;
+    insertBefore(head,101,"Mohan",99,9.3);
     printList(head);
 
     return 0;
