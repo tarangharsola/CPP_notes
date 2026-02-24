@@ -682,3 +682,4 @@ int main() {
     return 0;
 }
 ```
+- questions on single linked list are [here](./24-02-2026/q1.cpp)
