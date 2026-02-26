@@ -193,28 +193,39 @@ int main() {
     while (cin >> x) insert(x);
 
     Node* oddHead = NULL;
-    Node* oddTail = NULL;
     Node* evenHead = NULL;
-    Node* evenTail = NULL;
 
     Node* temp = head;
-    int idx = 0;
+    int idx = 1;
     while (temp != NULL) {
         Node* newNode = new Node();
         newNode->data = temp->data;
         newNode->next = NULL;
-        if (idx % 2 == 0) {
-            if (oddHead == NULL) { oddHead = newNode; oddTail = newNode; }
-            else { oddTail->next = newNode; oddTail = newNode; }
+
+        if (idx % 2 != 0) {
+            if (oddHead == NULL) {
+                oddHead = newNode;
+            } else {
+                Node* t = oddHead;
+                while (t->next != NULL) t = t->next;
+                t->next = newNode;
+            }
         } else {
-            if (evenHead == NULL) { evenHead = newNode; evenTail = newNode; }
-            else { evenTail->next = newNode; evenTail = newNode; }
+            if (evenHead == NULL) {
+                evenHead = newNode;
+            } else {
+                Node* t = evenHead;
+                while (t->next != NULL) t = t->next;
+                t->next = newNode;
+            }
         }
         idx++;
         temp = temp->next;
     }
 
-    if (oddTail != NULL) oddTail->next = evenHead;
+    Node* t = oddHead;
+    while (t->next != NULL) t = t->next;
+    t->next = evenHead;
 
     Node* curr = oddHead;
     while (curr != NULL) {
