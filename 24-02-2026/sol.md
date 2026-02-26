@@ -294,76 +294,77 @@ int main() {
 ```cpp
 #include <iostream>
 #include <string>
-#include <map>
-#include <unordered_map>
+#include <bits/stdc++.h>
 using namespace std;
 
 class Node {
-public:
+    public:
     int data;
-    Node* next;
+    Node* p=nullptr;
+
+    Node(int d) {
+      data=d;
+    }
 };
 
-Node* head = NULL;
-Node* freqHead = NULL;
+class SLL {
+    public:
+    Node* sp = nullptr;
 
-void insertList(int x) {
-    Node* newNode = new Node();
-    newNode->data = x;
-    newNode->next = NULL;
-    if (head == NULL) {
-        head = newNode;
-    } else {
-        Node* temp = head;
-        while (temp->next != NULL)
-            temp = temp->next;
-        temp->next = newNode;
+    void addAtEnd(Node* newobj) {
+        Node* tp = sp;
+        if (sp==nullptr) {
+            sp=newobj;
+            return;
+        }
+        while(tp->p!=nullptr) {
+            tp=tp->p;
+        }
+        tp->p=newobj;
     }
-}
 
-void insertFreq(int x) {
-    Node* newNode = new Node();
-    newNode->data = x;
-    newNode->next = NULL;
-    if (freqHead == NULL) {
-        freqHead = newNode;
-    } else {
-        Node* temp = freqHead;
-        while (temp->next != NULL)
-            temp = temp->next;
-        temp->next = newNode;
+    unordered_map<int,int> freqReturn() {
+        Node* tp = sp;
+        unordered_map<int,int> returnMap;
+
+        while(tp != nullptr) {
+            returnMap[tp->data]++;
+            tp=tp->p;
+        }
+        return returnMap;
     }
-}
+
+    void printLL() {
+        Node* tp = sp;
+
+        while(tp!=nullptr) {
+            cout << tp->data << " ";
+            tp=tp->p;
+        }
+    }
+};
 
 int main() {
-    int n;
-    cin >> n;
-    for (int i = 0; i < n; i++) {
-        int x;
-        cin >> x;
-        insertList(x);
+    SLL* linkedlist = new SLL();
+    int num;
+    cin>>num;
+    for (int i=0; i<num; i++) {
+        int tempnum;
+        cin>>tempnum;
+        Node* temp = new Node(tempnum);
+        linkedlist->addAtEnd(temp);
     }
 
-    map<int, int> freq;
+    SLL* returnList = new SLL();
+    auto maps = linkedlist->freqReturn();
 
-    Node* temp = head;
-    while (temp != NULL) {
-        freq[temp->data]++;
-        temp = temp->next;
+    for (auto x:maps) {
+        Node* temp1 = new Node(x.second);
+        returnList->addAtEnd(temp1);
     }
-
-    for (auto i : freq) {
-        insertFreq(i.second);
-    }
-
-    Node* p = freqHead;
-    while (p != NULL) {
-        cout << p->data;
-        if (p->next != NULL) cout << " ";
-        p = p->next;
-    }
-    cout << endl;
+    returnList->printLL();
 }
+
 ```
 
 ---
