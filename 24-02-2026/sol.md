@@ -366,14 +366,6 @@ int main() {
 }
 ```
 
-**How it works:**
-```
-Original list  : 1 -> 1 -> 2 -> 1 -> 2 -> 3
-map after count: {1:3, 2:2, 3:1}
-freq list      : 3 -> 2 -> 1
-Output         : 3 2 1
-```
-
 ---
 
 **q7.cpp**
