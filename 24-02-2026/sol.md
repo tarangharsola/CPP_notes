@@ -293,6 +293,9 @@ int main() {
 **q6.cpp**
 ```cpp
 #include <iostream>
+#include <string>
+#include <map>
+#include <unordered_map>
 using namespace std;
 
 class Node {
@@ -302,8 +305,9 @@ public:
 };
 
 Node* head = NULL;
+Node* freqHead = NULL;
 
-void insert(int x) {
+void insertList(int x) {
     Node* newNode = new Node();
     newNode->data = x;
     newNode->next = NULL;
@@ -317,33 +321,57 @@ void insert(int x) {
     }
 }
 
+void insertFreq(int x) {
+    Node* newNode = new Node();
+    newNode->data = x;
+    newNode->next = NULL;
+    if (freqHead == NULL) {
+        freqHead = newNode;
+    } else {
+        Node* temp = freqHead;
+        while (temp->next != NULL)
+            temp = temp->next;
+        temp->next = newNode;
+    }
+}
+
 int main() {
     int n;
     cin >> n;
     for (int i = 0; i < n; i++) {
-        int x; cin >> x;
-        insert(x);
+        int x;
+        cin >> x;
+        insertList(x);
     }
 
-    int freq[100001] = {0};
-    bool seen[100001] = {false};
+    map<int, int> freq;
 
     Node* temp = head;
-    while (temp != NULL) { freq[temp->data]++; temp = temp->next; }
-
-    bool first = true;
-    temp = head;
     while (temp != NULL) {
-        if (!seen[temp->data]) {
-            seen[temp->data] = true;
-            if (!first) cout << " ";
-            cout << freq[temp->data];
-            first = false;
-        }
+        freq[temp->data]++;
         temp = temp->next;
+    }
+
+    for (auto i : freq) {
+        insertFreq(i.second);
+    }
+
+    Node* p = freqHead;
+    while (p != NULL) {
+        cout << p->data;
+        if (p->next != NULL) cout << " ";
+        p = p->next;
     }
     cout << endl;
 }
+```
+
+**How it works:**
+```
+Original list  : 1 -> 1 -> 2 -> 1 -> 2 -> 3
+map after count: {1:3, 2:2, 3:1}
+freq list      : 3 -> 2 -> 1
+Output         : 3 2 1
 ```
 
 ---
