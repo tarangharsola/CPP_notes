@@ -686,70 +686,186 @@ int main() {
 ## Double linked list - 
 ```cpp
 #include <iostream>
+#include <string>
 using namespace std;
 
-struct Node {
-    int data;
-    Node* prev;
-    Node* next;
+class Student {
+public:
+    string name;
+    int rollNumber;
+    float cgpa;
+    Student* next;
+    Student* prev;
+
+    Student(string n, int r, float c) {
+        name = n;
+        rollNumber = r;
+        cgpa = c;
+        next = nullptr;
+        prev = nullptr;
+    }
 };
 
-Node* head = NULL;
+void printList(Student* head) {
+    Student* temp = head;
+    while (temp != nullptr) {
+        cout << "Name: " << temp->name << ", Roll: " << temp->rollNumber << ", CGPA: " << temp->cgpa << endl;
+        temp = temp->next;
+    }
+}
 
-void insertEnd(int value) {
-    Node* newNode = new Node();
-    newNode->data = value;
-    newNode->next = NULL;
+void addAtStart(Student* &head, string name, int roll, float cgpa) {
+    Student* newNode = new Student(name, roll, cgpa);
+    newNode->next = head;
+    if (head != nullptr)
+        head->prev = newNode;
+    head = newNode;
+}
 
-    if (head == NULL) {
-        newNode->prev = NULL;
+void addAtEnd(Student* &head, string name, int roll, float cgpa) {
+    Student* newNode = new Student(name, roll, cgpa);
+    if (head == nullptr) {
         head = newNode;
         return;
     }
-
-    Node* temp = head;
-    while (temp->next != NULL) {
+    Student* temp = head;
+    while (temp->next != nullptr)
         temp = temp->next;
-    }
-
     temp->next = newNode;
     newNode->prev = temp;
 }
 
-void displayForward() {
-    Node* temp = head;
-    while (temp != NULL) {
-        cout << temp->data << " ";
+void insertAfter(Student* head, int targetRoll, string name, int roll, float cgpa) {
+    Student* temp = head;
+    while (temp != nullptr && temp->rollNumber != targetRoll)
         temp = temp->next;
+    if (temp == nullptr) {
+        cout << "Roll number not found!" << endl;
+        return;
     }
-    cout << endl;
+    Student* newNode = new Student(name, roll, cgpa);
+    newNode->next = temp->next;
+    newNode->prev = temp;
+    if (temp->next != nullptr)
+        temp->next->prev = newNode;
+    temp->next = newNode;
 }
 
-void displayBackward() {
-    Node* temp = head;
-    if (temp == NULL) return;
-
-    while (temp->next != NULL) {
+void insertBefore(Student* &head, int targetRoll, string name, int roll, float cgpa) {
+    if (head == nullptr) {
+        cout << "List is empty!" << endl;
+        return;
+    }
+    Student* temp = head;
+    while (temp != nullptr && temp->rollNumber != targetRoll)
         temp = temp->next;
+    if (temp == nullptr) {
+        cout << "Roll number not found!" << endl;
+        return;
     }
+    Student* newNode = new Student(name, roll, cgpa);
+    newNode->next = temp;
+    newNode->prev = temp->prev;
+    if (temp->prev != nullptr)
+        temp->prev->next = newNode;
+    else
+        head = newNode;  // inserting before head
+    temp->prev = newNode;
+}
 
-    while (temp != NULL) {
-        cout << temp->data << " ";
-        temp = temp->prev;
+void deleteAtStart(Student* &head) {
+    if (head == nullptr) {
+        cout << "List is empty!" << endl;
+        return;
     }
-    cout << endl;
+    Student* temp = head;
+    head = head->next;
+    if (head != nullptr)
+        head->prev = nullptr;
+    delete temp;
+}
+
+void deleteAtEnd(Student* &head) {
+    if (head == nullptr) {
+        cout << "List is empty!" << endl;
+        return;
+    }
+    if (head->next == nullptr) {
+        delete head;
+        head = nullptr;
+        return;
+    }
+    Student* temp = head;
+    while (temp->next != nullptr)
+        temp = temp->next;
+    temp->prev->next = nullptr;
+    delete temp;
+}
+
+void deleteByRoll(Student* &head, int targetRoll) {
+    if (head == nullptr) {
+        cout << "List is empty!" << endl;
+        return;
+    }
+    Student* temp = head;
+    while (temp != nullptr && temp->rollNumber != targetRoll)
+        temp = temp->next;
+    if (temp == nullptr) {
+        cout << "Roll number not found!" << endl;
+        return;
+    }
+    if (temp->prev != nullptr)
+        temp->prev->next = temp->next;
+    else
+        head = temp->next;  // deleting head node
+    if (temp->next != nullptr)
+        temp->next->prev = temp->prev;
+    delete temp;
 }
 
 int main() {
-    insertEnd(10);
-    insertEnd(20);
-    insertEnd(30);
+    Student* s1 = new Student("Ram", 101, 8.5);
+    Student* s2 = new Student("Shyam", 102, 9.5);
+    Student* s3 = new Student("Sita", 103, 8.7);
+    Student* s4 = new Student("Gita", 104, 9.2);
 
-    cout << "Forward: ";
-    displayForward();
+    // Linking nodes with both next and prev
+    s1->next = s2; s2->prev = s1;
+    s2->next = s3; s3->prev = s2;
+    s3->next = s4; s4->prev = s3;
 
-    cout << "Backward: ";
-    displayBackward();
+    Student* head = s1;
+
+    cout << "Original List:\n";
+    printList(head);
+
+    cout << "\nAfter adding at end:\n";
+    addAtEnd(head, "Ramesh", 105, 9.0);
+    printList(head);
+
+    cout << "\nAfter adding at start:\n";
+    addAtStart(head, "Krishna", 100, 9.8);
+    printList(head);
+
+    cout << "\nAfter inserting AFTER Roll 102:\n";
+    insertAfter(head, 102, "Arjun", 106, 8.9);
+    printList(head);
+
+    cout << "\nAfter inserting BEFORE Roll 101:\n";
+    insertBefore(head, 101, "Mohan", 99, 9.3);
+    printList(head);
+
+    cout << "\nAfter deleting at start:\n";
+    deleteAtStart(head);
+    printList(head);
+
+    cout << "\nAfter deleting at end:\n";
+    deleteAtEnd(head);
+    printList(head);
+
+    cout << "\nAfter deleting Roll 102:\n";
+    deleteByRoll(head, 102);
+    printList(head);
 
     return 0;
 }
