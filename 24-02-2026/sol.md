@@ -242,6 +242,7 @@ int main() {
 **q5.cpp**
 ```cpp
 #include <iostream>
+#include <set>
 using namespace std;
 
 class Node {
@@ -270,14 +271,23 @@ int main() {
     int x;
     while (cin >> x) insert(x);
 
-    int freq[100001] = {0};
+    set<int> seen;
+    set<int> duplicate;
+
     Node* temp = head;
-    while (temp != NULL) { freq[temp->data]++; temp = temp->next; }
+    while (temp != NULL) {
+        if (seen.count(temp->data)) {
+            duplicate.insert(temp->data);
+        } else {
+            seen.insert(temp->data);
+        }
+        temp = temp->next;
+    }
 
     bool first = true;
     temp = head;
     while (temp != NULL) {
-        if (freq[temp->data] == 1) {
+        if (duplicate.count(temp->data) == 0) {
             if (!first) cout << " ";
             cout << temp->data;
             first = false;
@@ -287,8 +297,6 @@ int main() {
     cout << endl;
 }
 ```
-
----
 
 **q6.cpp**
 ```cpp
