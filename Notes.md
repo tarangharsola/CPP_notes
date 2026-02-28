@@ -1208,9 +1208,6 @@ int factorial(int n){
     return n * factorial(n-1);  // NOT tail — must multiply after returning
 }                               // pending work → stack builds up
 ```
-
-The trick is using an **accumulator** to carry the result forward so there's no pending work.
-
 ---
 
 ### Simple way to remember
