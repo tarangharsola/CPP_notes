@@ -1007,7 +1007,7 @@ for(auto &[key,val] : freq)
 ### The Core Idea
 
 **Iteration** — repeat using loops, you control the cycle explicitly
-**Recursion** — function calls **itself**, breaking problem into smaller subproblems
+**Recursion** — function calls **itself**, you use it when you are unsure of the answer . Navigation through call stack becomes easy
 
 ---
 
@@ -1129,5 +1129,4 @@ Each call adds a **stack frame** — memory runs out → **Stack Overflow**
 > **Iteration** is like walking down stairs one step at a time, counting each step yourself.
 >
 > **Recursion** is like asking someone below you *"how many steps are below you?"*, and they ask someone below them, until someone at the bottom says *"zero"* — then the answer bubbles back up.
-
 ---
