@@ -1123,3 +1123,98 @@ void infinite(int n){
 Each call adds a **stack frame** — memory runs out → **Stack Overflow**
 
 ---
+- Recursion are of 3 type - head , tail and branch(will be discussed later).
+---
+
+### Head Recursion
+
+The recursive call happens **before** any processing — the function calls itself first, then does work on the way **back up**.
+
+```cpp
+void head(int n){
+    if(n == 0) return;  // base case
+    head(n-1);          // recursive call FIRST
+    cout << n << " ";   // work happens AFTER
+}
+
+head(5);
+// Output: 1 2 3 4 5
+```
+
+**Call stack:**
+```
+head(5) → head(4) → head(3) → head(2) → head(1) → head(0)
+                                                    returns
+                                         prints 1
+                              prints 2
+                   prints 3
+        prints 4
+prints 5
+```
+Work happens on the way **back up** — so output is in reverse of call order.
+
+---
+
+### Tail Recursion
+
+The recursive call happens **after** all processing — it's the **last thing** the function does.
+
+```cpp
+void tail(int n){
+    if(n == 0) return;  // base case
+    cout << n << " ";   // work happens FIRST
+    tail(n-1);          // recursive call LAST
+}
+
+tail(5);
+// Output: 5 4 3 2 1
+```
+
+**Call stack:**
+```
+tail(5) → prints 5 → tail(4) → prints 4 → tail(3) → ...
+```
+Work happens on the way **down** — no pending work left when returning.
+
+---
+
+### Key Difference
+
+| | Head Recursion | Tail Recursion |
+|---|---|---|
+| Recursive call | first | last |
+| Work done | on way back (unwinding) | on way down |
+| Stack needed | yes, must remember state | can be optimized away |
+| Output order | reversed | natural |
+
+---
+
+### Why Tail Recursion matters — TCO
+
+**Tail Call Optimization (TCO)** — compiler can convert tail recursion into a loop internally, so **no stack builds up**:
+
+```cpp
+// Tail recursive factorial
+int factorial(int n, int acc = 1){
+    if(n == 0) return acc;
+    return factorial(n-1, n * acc);  // tail call — nothing pending after this
+}
+```
+
+vs regular (head-style) factorial:
+```cpp
+int factorial(int n){
+    if(n == 0) return 1;
+    return n * factorial(n-1);  // NOT tail — must multiply after returning
+}                               // pending work → stack builds up
+```
+
+The trick is using an **accumulator** to carry the result forward so there's no pending work.
+
+---
+
+### Simple way to remember
+
+> **Head** — recurse first, work later → like reading a book backwards
+>
+> **Tail** — work first, recurse later → like reading normally, no looking back
