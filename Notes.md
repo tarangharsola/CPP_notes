@@ -1123,10 +1123,3 @@ void infinite(int n){
 Each call adds a **stack frame** — memory runs out → **Stack Overflow**
 
 ---
-
-### Quick Analogy
-
-> **Iteration** is like walking down stairs one step at a time, counting each step yourself.
->
-> **Recursion** is like asking someone below you *"how many steps are below you?"*, and they ask someone below them, until someone at the bottom says *"zero"* — then the answer bubbles back up.
----
