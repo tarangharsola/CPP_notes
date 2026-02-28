@@ -870,5 +870,131 @@ int main() {
     return 0;
 }
 ```
+## `map` and `set` 
 ---
-# map - 
+
+### `set` — Collection of Unique Keys
+
+Think of it as a **sorted bag where duplicates are rejected**.
+
+```cpp
+#include <set>
+set<int> s;
+
+s.insert(5);
+s.insert(3);
+s.insert(5);  // ignored, already exists
+s.insert(1);
+
+// s = {1, 3, 5}  → always sorted
+```
+
+**Internals:** Red-Black Tree (self-balancing BST)
+- Every element is a **node in the tree**
+- Automatically sorted on insertion
+- No random access (`s[0]` ❌)
+
+---
+
+### `map` — Key-Value pairs with Unique Sorted Keys
+
+Think of it as a **sorted dictionary**.
+
+```cpp
+#include <map>
+map<string, int> m;
+
+m["Alice"] = 95;
+m["Bob"]   = 87;
+m["Alice"] = 50;  // overwrites, doesn't duplicate
+
+// m = { {Alice,50}, {Bob,87} }  → sorted by key
+```
+
+**Internals:** Also a Red-Black Tree, but each node stores a **pair(key, value)**
+
+---
+
+### Key Differences — `map` vs `set`
+
+| Feature | `set` | `map` |
+|---|---|---|
+| Stores | only keys | key + value |
+| Use case | membership check | lookup/dictionary |
+| Access | `s.count(x)` | `m[key]`, `m.at(key)` |
+| Duplicates | ❌ | ❌ (keys unique) |
+
+---
+
+### Important Methods
+
+```cpp
+set<int> s = {1, 2, 3, 4, 5};
+
+s.insert(6);          // add element
+s.erase(3);           // remove element
+s.count(2);           // 1 if exists, 0 if not
+s.find(2);            // iterator to element or s.end()
+s.size();             // number of elements
+s.empty();            // true if empty
+s.clear();            // remove all
+
+// Range queries (very powerful!)
+s.lower_bound(3);     // iterator to first element >= 3
+s.upper_bound(3);     // iterator to first element > 3
+```
+
+```cpp
+map<string,int> m;
+
+m["key"] = 10;        // insert or overwrite
+m.at("key");          // throws if key missing (safe)
+m.count("key");       // 1 or 0
+m.find("key");        // iterator or m.end()
+m.erase("key");       // remove by key
+```
+
+---
+
+### `m["key"]` vs `m.at("key")`
+
+```cpp
+map<string,int> m;
+m["Alice"] = 95;
+
+cout << m["Bob"];     // ⚠️ inserts Bob with value 0 !
+cout << m.at("Bob");  // ✅ throws std::out_of_range
+```
+> Always use `m.find()` or `m.count()` before accessing an uncertain key.
+
+---
+
+### Practical Example — using both together
+
+```cpp
+// Count frequency, then find chars appearing more than once
+string s = "hello";
+map<char,int> freq;
+
+for(char c : s) freq[c]++;
+
+set<char> duplicates;
+for(auto &[key,val] : freq)
+    if(val > 1) duplicates.insert(key);
+
+// duplicates = {'l'}
+```
+
+---
+
+### When to use what?
+
+| Situation | Use |
+|---|---|
+| Just check if something exists | `set` |
+| Store key → value mapping | `map` |
+| Need sorted order | `map` or `set` |
+| Need fast O(1) lookup, don't care about order | `unordered_map` / `unordered_set` |
+| Need min/max quickly | `set` → `*s.begin()` / `*s.rbegin()` |
+
+---
