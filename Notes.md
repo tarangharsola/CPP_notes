@@ -998,3 +998,136 @@ for(auto &[key,val] : freq)
 | Need min/max quickly | `set` → `*s.begin()` / `*s.rbegin()` |
 
 ---
+
+# Recursion -
+## Iteration vs Recursion
+
+---
+
+### The Core Idea
+
+**Iteration** — repeat using loops, you control the cycle explicitly
+**Recursion** — function calls **itself**, breaking problem into smaller subproblems
+
+---
+
+### Same Problem, Both Ways — Factorial
+
+**Iterative:**
+```cpp
+int factorial(int n){
+    int result = 1;
+    for(int i = 1; i <= n; i++){
+        result *= i;
+    }
+    return result;
+}
+```
+
+**Recursive:**
+```cpp
+int factorial(int n){
+    if(n == 0) return 1;  // base case
+    return n * factorial(n-1);  // recursive call
+}
+```
+
+---
+
+### What happens in memory?
+
+**Iteration** — uses a fixed amount of memory, loop just updates variables:
+```
+factorial(5):
+result = 1 → 2 → 6 → 24 → 120
+```
+
+**Recursion** — each call is pushed onto the **call stack**:
+```
+factorial(5)
+  factorial(4)
+    factorial(3)
+      factorial(2)
+        factorial(1)
+          factorial(0) → returns 1
+        returns 1
+      returns 2
+    returns 6
+  returns 24
+returns 120
+```
+Every function call waits for the next one to finish — stack builds up and unwinds.
+
+---
+
+### Key Differences
+
+| | Iteration | Recursion |
+|---|---|---|
+| Uses | loops (`for`, `while`) | function calls itself |
+| Memory | O(1) — fixed | O(n) — call stack grows |
+| Speed | faster (no function call overhead) | slightly slower |
+| Termination | loop condition | base case |
+| Infinite loop risk | `while(true)` | stack overflow |
+| Code simplicity | can get complex | often cleaner & elegant |
+| Best for | simple repetition | tree/graph problems, divide & conquer |
+
+---
+
+### Recursion needs TWO things
+
+```cpp
+int factorial(int n){
+    if(n == 0) return 1;       // 1. BASE CASE — stops recursion
+    return n * factorial(n-1); // 2. RECURSIVE CASE — moves toward base case
+}
+```
+
+Missing the base case → **infinite recursion → stack overflow crash**
+
+---
+
+### Where Recursion shines
+
+Problems that are **naturally recursive** — trees, graphs, divide & conquer:
+
+```cpp
+// Fibonacci
+int fib(int n){
+    if(n <= 1) return n;
+    return fib(n-1) + fib(n-2);
+}
+
+// Binary Search
+int binarySearch(int arr[], int l, int r, int target){
+    if(l > r) return -1;
+    int mid = (l + r) / 2;
+    if(arr[mid] == target) return mid;
+    if(arr[mid] > target) return binarySearch(arr, l, mid-1, target);
+    return binarySearch(arr, mid+1, r, target);
+}
+```
+
+Doing binary search iteratively is possible but less intuitive.
+
+---
+
+### Stack Overflow — Recursion's danger
+
+```cpp
+void infinite(int n){
+    return infinite(n+1);  // no base case → CRASH
+}
+```
+
+Each call adds a **stack frame** — memory runs out → **Stack Overflow**
+
+---
+
+### Quick Analogy
+
+> **Iteration** is like walking down stairs one step at a time, counting each step yourself.
+>
+> **Recursion** is like asking someone below you *"how many steps are below you?"*, and they ask someone below them, until someone at the bottom says *"zero"* — then the answer bubbles back up.
+
+---
