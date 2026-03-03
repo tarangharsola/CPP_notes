@@ -1194,3 +1194,4 @@ Work happens on the way **down** — no pending work left when returning.
 > **Head** — recurse first, work later → like reading a book backwards
 >
 > **Tail** — work first, recurse later → like reading normally, no looking back
+___
