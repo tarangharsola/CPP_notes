@@ -1189,27 +1189,6 @@ Work happens on the way **down** — no pending work left when returning.
 
 ---
 
-### Why Tail Recursion matters — TCO
-
-**Tail Call Optimization (TCO)** — compiler can convert tail recursion into a loop internally, so **no stack builds up**:
-
-```cpp
-// Tail recursive factorial
-int factorial(int n, int acc = 1){
-    if(n == 0) return acc;
-    return factorial(n-1, n * acc);  // tail call — nothing pending after this
-}
-```
-
-vs regular (head-style) factorial:
-```cpp
-int factorial(int n){
-    if(n == 0) return 1;
-    return n * factorial(n-1);  // NOT tail — must multiply after returning
-}                               // pending work → stack builds up
-```
----
-
 ### Simple way to remember
 
 > **Head** — recurse first, work later → like reading a book backwards
