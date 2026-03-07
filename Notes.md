@@ -1383,3 +1383,94 @@ s.emplace("Diana", 23);  // constructs Student directly onto the stack
 ### stack underflow
 
 - when we try to keep doing stack.pop() until there are no more elements left to remove, we get a stack underflow error.
+---
+## creation of stack using arrays - 
+```cpp
+#include<iostream>
+using namespace std;
+
+class Stack {
+    int* arr;
+    int t;
+    int capacity;
+
+public:
+    Stack(int capacity) {
+        this->capacity = capacity;
+        arr = new int[capacity];
+        t = -1;
+    }
+
+    ~Stack() {
+        delete[] arr;
+    }
+
+    void push(int x) {
+        if (t == capacity - 1) {
+            cout << "Stack Overflow!" << endl;
+            return;
+        }
+        arr[++t] = x;
+        cout << "Pushed: " << x << endl;
+    }
+
+    void pop() {
+        if (t == -1) {
+            cout << "Stack Underflow!" << endl;
+            return;
+        }
+        cout << "Popped: " << arr[t--] << endl;
+    }
+
+    int top() {
+        if (t == -1) {
+            cout << "Stack is empty!" << endl;
+            return -1;
+        }
+        return arr[t];
+    }
+
+    bool empty() {
+        return t == -1;
+    }
+
+    int size() {
+        return t + 1;
+    }
+
+    void display() {
+        if (t == -1) {
+            cout << "Stack is empty!" << endl;
+            return;
+        }
+        cout << "Stack (top -> bottom): ";
+        for (int i = t; i >= 0; i--)
+            cout << arr[i] << " ";
+        cout << endl;
+    }
+};
+
+int main() {
+    Stack s(5);
+
+    cout << "empty: " << (s.empty() ? "Yes" : "No") << endl;
+
+    s.push(10);
+    s.push(20);
+    s.push(30);
+
+    s.display();
+
+    cout << "top: " << s.top() << endl;
+    cout << "size: " << s.size() << endl;
+
+    s.pop();
+    s.pop();
+
+    s.display();
+
+    cout << "empty: " << (s.empty() ? "Yes" : "No") << endl;
+
+    return 0;
+}
+```
