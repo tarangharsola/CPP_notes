@@ -1374,3 +1374,10 @@ s.emplace("Diana", 23);  // constructs Student directly onto the stack
 | **Function call stack**   | How recursion works internally            |
 | **Browser history**       | Back button uses a stack                  |
 | **Syntax parsing**        | Used in compilers                         |
+---
+## what is polymorphyism ??
+- 
+## differnce between method and function and cpp 
+- 
+## what is adt and what is adt of stack
+- 
