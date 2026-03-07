@@ -1259,6 +1259,17 @@ stack<string> s;  // stack of strings
 stack<char>   s;  // stack of characters
 ```
 
+The STL `stack` is a **template container** — it works with any type, including custom classes:
+
+| Type      | Example                |
+|-----------|------------------------|
+| Primitive | `stack<int>`           |
+| String    | `stack<string>`        |
+| Object    | `stack<Student>`       |
+| Pointer   | `stack<Student*>`      |
+| Pair      | `stack<pair<int,int>>` |
+| Vector    | `stack<vector<int>>`   |
+
 ---
 
 ## Example
@@ -1280,6 +1291,66 @@ s.empty();    // returns false
 
 ---
 
+## Stack of Objects
+
+You can push any custom class onto a stack just like a primitive type.
+
+```cpp
+#include <stack>
+#include <string>
+using namespace std;
+
+class Student {
+public:
+    string name;
+    int age;
+
+    Student(string n, int a) : name(n), age(a) {}
+};
+
+int main() {
+    stack<Student> s;
+
+    s.push(Student("Alice", 20));
+    s.push(Student("Bob", 22));
+    s.push(Student("Charlie", 21));
+
+    cout << s.top().name << endl;  // Charlie
+    cout << s.top().age  << endl;  // 21
+
+    s.pop();
+
+    cout << s.top().name << endl;  // Bob
+}
+```
+
+### Accessing Members
+
+Use `.` on `top()` to reach the object's fields:
+
+```cpp
+s.top().name;
+s.top().age;
+```
+
+### Modifying the Top Object
+
+`top()` returns a **reference**, so you can mutate it directly:
+
+```cpp
+s.top().age = 25;  // modifies the top Student in-place
+```
+
+### Using `emplace()` Instead of `push()`
+
+`emplace()` constructs the object directly in-place — more efficient as it avoids a copy:
+
+```cpp
+s.emplace("Diana", 23);  // constructs Student directly onto the stack
+```
+
+---
+
 ## Stack vs Other Data Structures
 
 | Feature       | Stack     | Queue      | Array     |
@@ -1294,12 +1365,12 @@ s.empty();    // returns false
 
 ## Use Cases
 
-| Use Case                  | Description                                     |
-|---------------------------|-------------------------------------------------|
-| **Undo / Redo**           | Editors push states onto a stack                |
-| **Balanced parentheses**  | Checking validity of `{[()]}` expressions       |
-| **Expression evaluation** | Infix → postfix conversion                      |
-| **DFS**                   | Depth-First Search in graphs and trees          |
-| **Function call stack**   | How recursion works internally                  |
-| **Browser history**       | Back button uses a stack                        |
-| **Syntax parsing**        | Used in compilers                               |
+| Use Case                  | Description                               |
+|---------------------------|-------------------------------------------|
+| **Undo / Redo**           | Editors push states onto a stack          |
+| **Balanced parentheses**  | Checking validity of `{[()]}` expressions |
+| **Expression evaluation** | Infix → postfix conversion                |
+| **DFS**                   | Depth-First Search in graphs and trees    |
+| **Function call stack**   | How recursion works internally            |
+| **Browser history**       | Back button uses a stack                  |
+| **Syntax parsing**        | Used in compilers                         |
