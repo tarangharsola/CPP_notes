@@ -1378,8 +1378,8 @@ s.emplace("Diana", 23);  // constructs Student directly onto the stack
 ## what is meant by stack underflow and stack overflow ?
 ### stack overflow
 
-when we try to keep doing stack.push() until there is no more space, so that there is no more space to push more elements, we get a stack overflow error.
+- when we try to keep doing stack.push() until there is no more space, so that there is no more space to push more elements, we get a stack overflow error.
 
 ### stack underflow
 
-when we try to keep doing stack.pop() until there are no more elements left to remove, we get a stack underflow error.
+- when we try to keep doing stack.pop() until there are no more elements left to remove, we get a stack underflow error.
