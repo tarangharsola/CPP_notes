@@ -1401,10 +1401,6 @@ public:
         t = -1;
     }
 
-    ~Stack() {
-        delete[] arr;
-    }
-
     void push(int x) {
         if (t == capacity - 1) {
             cout << "Stack Overflow!" << endl;
