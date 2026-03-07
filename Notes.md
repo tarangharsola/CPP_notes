@@ -1195,3 +1195,183 @@ Work happens on the way **down** — no pending work left when returning.
 >
 > **Tail** — work first, recurse later → like reading normally, no looking back
 ___
+# Stack
+
+- Follows **LIFO** (Last In, First Out) — the last element pushed is the first to be popped
+- You cannot traverse through the stack; only the **top element** is accessible at any time
+- It is both an **ADT** (Abstract Data Type) and a **Data Structure**
+
+---
+
+## Stack as an ADT (Abstract Data Type)
+
+An ADT defines **what** operations are supported, not **how** they are implemented.
+The Stack ADT only specifies the behavior/interface — the internal implementation is hidden.
+
+### ADT Definition
+
+```
+ADT Stack:
+    Data:
+        - A collection of elements in LIFO order
+
+    Operations:
+        - push(x)  → inserts x onto the top
+        - pop()    → removes the top element
+        - top()    → returns the top element without removing
+        - empty()  → returns true if stack has no elements
+        - size()   → returns the number of elements
+```
+
+### Why ADT Matters
+
+- The user only knows **what** the stack does, not **how** it works internally
+- The same Stack ADT can be implemented using:
+  - **Arrays**
+  - **Linked Lists**
+  - **Dynamic arrays (vectors)**
+- This separation is called **abstraction**
+
+---
+
+## Operations & Time Complexity
+
+| Operation  | Description               | Time Complexity |
+|------------|---------------------------|-----------------|
+| `push(x)`  | Add element to top        | O(1)            |
+| `pop()`    | Remove top element        | O(1)            |
+| `top()`    | Access top element        | O(1)            |
+| `empty()`  | Check if stack is empty   | O(1)            |
+| `size()`   | Return number of elements | O(1)            |
+| Traversal  | ❌ Not supported          | —               |
+
+> All core operations are O(1) — this is what makes stacks efficient.
+
+---
+
+## Declaration (STL)
+
+```cpp
+#include <stack>
+
+stack<int>    s;  // stack of integers
+stack<string> s;  // stack of strings
+stack<char>   s;  // stack of characters
+```
+
+---
+
+## Example
+
+```cpp
+stack<int> s;
+
+s.push(10);   // stack: [10]
+s.push(20);   // stack: [10, 20]
+s.push(30);   // stack: [10, 20, 30]
+
+s.top();      // returns 30  (does NOT remove)
+s.pop();      // stack: [10, 20]
+s.top();      // returns 20
+
+s.size();     // returns 2
+s.empty();    // returns false
+```
+
+---
+
+## Internal Implementations
+
+### 1. Using Array
+
+- Fixed size, fast access
+- Risk of **stack overflow** if capacity exceeded
+
+```cpp
+class Stack {
+    int arr[100];
+    int topIndex = -1;
+public:
+    void push(int x) { arr[++topIndex] = x; }
+    void pop()       { topIndex--; }
+    int  top()       { return arr[topIndex]; }
+    bool empty()     { return topIndex == -1; }
+    int  size()      { return topIndex + 1; }
+};
+```
+
+### 2. Using Linked List
+
+- Dynamic size, no overflow risk
+- Slightly more memory (stores pointers)
+
+```cpp
+struct Node {
+    int data;
+    Node* next;
+    Node(int val) : data(val), next(nullptr) {}
+};
+
+class Stack {
+    Node* topNode = nullptr;
+    int sz = 0;
+public:
+    void push(int x) {
+        Node* node = new Node(x);
+        node->next = topNode;
+        topNode = node;
+        sz++;
+    }
+    void pop() {
+        Node* temp = topNode;
+        topNode = topNode->next;
+        delete temp;
+        sz--;
+    }
+    int  top()   { return topNode->data; }
+    bool empty() { return topNode == nullptr; }
+    int  size()  { return sz; }
+};
+```
+
+### 3. Using STL Vector (Dynamic Array)
+
+- Grows automatically, no overflow risk
+
+```cpp
+class Stack {
+    vector<int> v;
+public:
+    void push(int x) { v.push_back(x); }
+    void pop()       { v.pop_back(); }
+    int  top()       { return v.back(); }
+    bool empty()     { return v.empty(); }
+    int  size()      { return v.size(); }
+};
+```
+
+---
+
+## Stack vs Other Data Structures
+
+| Feature       | Stack     | Queue      | Array     |
+|---------------|-----------|------------|-----------|
+| Order         | LIFO      | FIFO       | —         |
+| Traversal     | ❌        | ❌         | ✅        |
+| Insert        | Top only  | Rear only  | Any index |
+| Delete        | Top only  | Front only | Any index |
+| Random Access | ❌        | ❌         | ✅        |
+
+---
+
+## Use Cases
+
+| Use Case                  | Description                                     |
+|---------------------------|-------------------------------------------------|
+| **Undo / Redo**           | Editors push states onto a stack                |
+| **Balanced parentheses**  | Checking validity of `{[()]}` expressions       |
+| **Expression evaluation** | Infix → postfix conversion                      |
+| **DFS**                   | Depth-First Search in graphs and trees          |
+| **Function call stack**   | How recursion works internally                  |
+| **Browser history**       | Back button uses a stack                        |
+| **Syntax parsing**        | Used in compilers                               |
