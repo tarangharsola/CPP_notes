@@ -1470,3 +1470,136 @@ int main() {
     return 0;
 }
 ```
+---
+## Queqe - 
+
+### What is a Queue?
+
+A **queue** follows **FIFO** — First In, First Out. Like a line at a counter: first person in, first person out.
+
+---
+
+### Basic Usage (STL `queue`)
+
+```cpp
+#include <iostream>
+#include <queue>
+using namespace std;
+
+int main() {
+    queue<int> q;
+
+    q.push(10);
+    q.push(20);
+    q.push(30);
+
+    cout << "Front: " << q.front() << endl; // 10
+    cout << "Back:  " << q.back()  << endl; // 30
+    cout << "Size:  " << q.size()  << endl; // 3
+
+    q.pop(); // removes 10
+    cout << "After pop, Front: " << q.front() << endl; // 20
+
+    while (!q.empty()) {
+        cout << q.front() << " ";
+        q.pop();
+    }
+}
+```
+
+---
+
+### All Operations
+
+| Operation | Description | Example |
+|-----------|-------------|---------|
+| `push(x)` | Add to back | `q.push(5)` |
+| `pop()` | Remove from front | `q.pop()` |
+| `front()` | View front element | `q.front()` |
+| `back()` | View back element | `q.back()` |
+| `empty()` | Is queue empty? | `q.empty()` |
+| `size()` | Number of elements | `q.size()` |
+
+> ⚠️ `pop()` does **not** return the value — call `front()` before popping if you need it.
+
+---
+
+### Types of Queues in STL
+
+**1. Simple Queue**
+```cpp
+queue<int> q;
+q.push(1); q.push(2);
+q.pop(); // removes 1
+```
+
+**2. Deque** — push/pop from **both ends**
+```cpp
+#include <deque>
+deque<int> dq;
+dq.push_front(1);
+dq.push_back(2);
+dq.pop_front();
+dq.pop_back();
+```
+
+**3. Priority Queue** — highest value comes out first
+```cpp
+priority_queue<int> pq;       // max-heap (default)
+pq.push(5); pq.push(9); pq.push(1);
+cout << pq.top(); // 9
+
+// Min-heap — lowest value first
+priority_queue<int, vector<int>, greater<int>> minPQ;
+```
+
+---
+## creation of queqe using arrays - 
+```cpp
+#include <iostream>
+using namespace std;
+
+class Queue {
+    int arr[100];
+    int front, rear;
+
+public:
+    Queue() : front(0), rear(0) {}
+
+    void push(int val) {
+        if (rear == 100) { cout << "Queue is full!\n"; return; }
+        arr[rear++] = val;
+    }
+
+    void pop() {
+        if (front == rear) { cout << "Queue is empty!\n"; return; }
+        front++;
+    }
+
+    int getFront() { return arr[front]; }
+    int getBack()  { return arr[rear - 1]; }
+    bool empty()   { return front == rear; }
+    int size()     { return rear - front; }
+
+    void display() {
+        for (int i = front; i < rear; i++)
+            cout << arr[i] << " ";
+        cout << endl;
+    }
+};
+
+int main() {
+    Queue q;
+
+    q.push(10);
+    q.push(20);
+    q.push(30);
+
+    q.display();                              // 10 20 30
+    cout << "Front: " << q.getFront() << endl; // 10
+    cout << "Back:  " << q.getBack()  << endl; // 30
+
+    q.pop();
+    q.display();                              // 20 30
+}
+```
