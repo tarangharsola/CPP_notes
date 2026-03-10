@@ -1686,12 +1686,6 @@ public:
         rear = nullptr;
     }
 
-    ~Queue() {
-        while (!isEmpty()) {
-            dequeue();
-        }
-    }
-
     bool isEmpty() {
         return front == nullptr;
     }
