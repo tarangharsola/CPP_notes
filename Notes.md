@@ -1612,14 +1612,17 @@ ___
 using namespace std;
 
 class Queue {
-    int arr[100];
+    int* arr;
     int front, rear;
+    int capacity;
 
 public:
-    Queue() : front(0), rear(0) {}
 
+    Queue(int size) : front(0), rear(0), capacity(size) {
+        arr = new int[capacity];
+    }
     bool isFull() {
-        return rear == 100;
+        return rear == capacity;
     }
 
     bool isEmpty() {
@@ -1627,35 +1630,54 @@ public:
     }
 
     void enqueue(int data) {
-        if (isFull()) { cout << "Queue is full!\n"; return; }
+        if (isFull()) { 
+            cout << "Queue is full!\n"; 
+            return; 
+        }
         arr[rear++] = data;
+        cout << data << " enqueued." << endl;
     }
 
     int dequeue() {
-        if (isEmpty()) { cout << "Queue is empty!\n"; return -1; }
-        return arr[front++];
+        if (isEmpty()) { 
+            cout << "Queue is empty!\n"; 
+            return -1; 
+        }
+        int dequeuedValue = arr[front++];
+        cout << dequeuedValue << " dequeued." << endl;
+        
+        return dequeuedValue;
     }
 
     void printQueue() {
-        if (isEmpty()) { cout << "Queue is empty!\n"; return; }
-        for (int i = front; i < rear; i++)
+        if (isEmpty()) { 
+            cout << "Queue is empty!\n"; 
+            return; 
+        }
+        cout << "Current Queue: ";
+        for (int i = front; i < rear; i++) {
             cout << arr[i] << " ";
+        }
         cout << endl;
     }
 };
 
 int main() {
-    Queue q;
+    int n;
+    cout << "Enter the maximum size of the queue: ";
+    cin >> n;
+    Queue q(n);
 
     q.enqueue(10);
     q.enqueue(20);
     q.enqueue(30);
 
-    q.printQueue();
-    cout << "Dequeued: " << q.dequeue() << endl;      
-    q.printQueue();                                   
+    q.dequeue();
+    q.printQueue();                                  
 
-    cout << "Is Empty: " << q.isEmpty() << endl;      
-    cout << "Is Full:  " << q.isFull()  << endl;      
+    cout << "Is Empty: " << (q.isEmpty() ? "True" : "False") << endl;      
+    cout << "Is Full:  " << (q.isFull() ? "True" : "False")  << endl;      
+    
+    return 0;
 }
 ```
