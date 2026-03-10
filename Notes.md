@@ -1606,78 +1606,57 @@ int main() {
 ___
 ## Queue - 
 - It follows the the principle of **FIFO** - **F**irst **I**n , **F**irst **O**ut.
-### Making of Queue using arrays- 
+### Making of Queue using vector- 
 ```cpp
 #include <iostream>
+#include <vector>
+
 using namespace std;
 
 class Queue {
-    int* arr;
-    int front, rear;
-    int capacity;
+    vector<int> arr; 
 
 public:
-
-    Queue(int size) : front(0), rear(0), capacity(size) {
-        arr = new int[capacity];
-    }
-    bool isFull() {
-        return rear == capacity;
-    }
-
     bool isEmpty() {
-        return front == rear;
+        return arr.empty(); 
     }
 
     void enqueue(int data) {
-        if (isFull()) { 
-            cout << "Queue is full!\n"; 
-            return; 
-        }
-        arr[rear++] = data;
+        arr.push_back(data);
         cout << data << " enqueued." << endl;
     }
 
     int dequeue() {
         if (isEmpty()) { 
             cout << "Queue is empty!\n"; 
-            return -1; 
+            return -1;
         }
-        int dequeuedValue = arr[front++];
-        cout << dequeuedValue << " dequeued." << endl;
+        int dequeuedValue = arr.front();
+        arr.erase(arr.begin());
         
+        cout << dequeuedValue << " dequeued." << endl;
         return dequeuedValue;
     }
-
     void printQueue() {
         if (isEmpty()) { 
             cout << "Queue is empty!\n"; 
             return; 
         }
         cout << "Current Queue: ";
-        for (int i = front; i < rear; i++) {
-            cout << arr[i] << " ";
+        for (int val : arr) {
+            cout << val << " ";
         }
         cout << endl;
     }
 };
-
 int main() {
-    int n;
-    cout << "Enter the maximum size of the queue: ";
-    cin >> n;
-    Queue q(n);
-
+    Queue q; 
     q.enqueue(10);
     q.enqueue(20);
     q.enqueue(30);
-
     q.dequeue();
-    q.printQueue();                                  
-
+    q.printQueue();                                 
     cout << "Is Empty: " << (q.isEmpty() ? "True" : "False") << endl;      
-    cout << "Is Full:  " << (q.isFull() ? "True" : "False")  << endl;      
-    
     return 0;
 }
 ```
