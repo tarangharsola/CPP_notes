@@ -1603,3 +1603,58 @@ int main() {
     q.display();                              // 20 30
 }
 ```
+___
+## Queue - 
+### Making of Queue using arrays- 
+```cpp
+#include <iostream>
+using namespace std;
+
+class Queue {
+    int arr[100];
+    int front, rear;
+
+public:
+    Queue() : front(0), rear(0) {}
+
+    bool isFull() {
+        return rear == 100;
+    }
+
+    bool isEmpty() {
+        return front == rear;
+    }
+
+    void enqueue(int data) {
+        if (isFull()) { cout << "Queue is full!\n"; return; }
+        arr[rear++] = data;
+    }
+
+    int dequeue() {
+        if (isEmpty()) { cout << "Queue is empty!\n"; return -1; }
+        return arr[front++];
+    }
+
+    void printQueue() {
+        if (isEmpty()) { cout << "Queue is empty!\n"; return; }
+        for (int i = front; i < rear; i++)
+            cout << arr[i] << " ";
+        cout << endl;
+    }
+};
+
+int main() {
+    Queue q;
+
+    q.enqueue(10);
+    q.enqueue(20);
+    q.enqueue(30);
+
+    q.printQueue();
+    cout << "Dequeued: " << q.dequeue() << endl;      
+    q.printQueue();                                   
+
+    cout << "Is Empty: " << q.isEmpty() << endl;      
+    cout << "Is Full:  " << q.isFull()  << endl;      
+}
+```
