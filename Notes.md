@@ -1605,6 +1605,7 @@ int main() {
 ```
 ___
 ## Queue - 
+- It follows the the principle of **FIFO** - **F**irst **I**n , **F**irst **O**ut.
 ### Making of Queue using arrays- 
 ```cpp
 #include <iostream>
