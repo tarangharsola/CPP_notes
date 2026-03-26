@@ -1820,3 +1820,5 @@ int main() {
     return 0;
 }
 ```
+**note** - I used stack library but we can also manually impliment it. 
+- try question number 155,735,844 from leetcode 
