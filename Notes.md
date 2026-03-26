@@ -1749,3 +1749,74 @@ int main() {
     return 0;
 }
 ```
+___
+## Working of a brower - 
+### methods(ADT) - 
+- go 
+- back 
+- forward 
+--- 
+- as we can see this is a clear implimentation of stack 
+- similarly we can do for undo and redo. 
+## code for browser - 
+```cpp
+#include <iostream>
+#include <stack>
+#include <string>
+
+class Browser {
+private:
+    std::stack<std::string> backStack;
+    std::stack<std::string> forwardStack;
+    std::string currentPage;
+
+public:
+    Browser(const std::string& homepage) : currentPage(homepage) {
+        std::cout << "Opened: " << currentPage << "\n";
+    }
+    void go(const std::string& url) {
+        backStack.push(currentPage);
+        while (!forwardStack.empty())
+            forwardStack.pop();
+        currentPage = url;
+        std::cout << "Navigated to: " << currentPage << "\n";
+    }
+
+    void back() {
+        if (backStack.empty()) {
+            std::cout << "Nothing to go back to.\n";
+            return;
+        }
+        forwardStack.push(currentPage);    
+        currentPage = backStack.top();
+        backStack.pop();
+        std::cout << "Back to: " << currentPage << "\n";
+    }
+    void forward() {
+        if (forwardStack.empty()) {
+            std::cout << "Nothing to go forward to.\n";
+            return;
+        }
+        backStack.push(currentPage);
+        currentPage = forwardStack.top();
+        forwardStack.pop();
+        std::cout << "Forward to: " << currentPage << "\n";
+    }
+
+    void current() {
+        std::cout << "Current page: " << currentPage << "\n";
+    }
+};
+
+int main() {
+    Browser b("google.com");
+    b.go("github.com");
+    b.go("reddit.com");
+    b.back();          //  github.com
+    b.back();          //  google.com
+    b.forward();       //  github.com
+    b.go("stackoverflow.com");  // clears forward stack
+    b.forward();       // "Nothing to go forward to"
+    return 0;
+}
+```
