@@ -1823,9 +1823,9 @@ int main() {
 **note** - I used stack library but we can also manually impliment it. 
 - try question number 155,735,844 from leetcode 
 ---
-## Trees - 
+# Trees - 
 - notes on trees are [here](./2-4-2026/DS-UNIT-45.pptx)
-### printing using recursion - 
+### defining tree without map- 
 ```cpp
 #include<iostream>
 #include<vector>
@@ -1845,21 +1845,6 @@ public:
     }
 };
 
-
-void printTree(TreeNode* root) {
-    if (root == NULL) return;
-
-    cout << root->data << " -> ";
-    for (auto child : root->children) {
-        cout << child->data << " ";
-    }
-    cout << endl;
-
-    for (auto child : root->children) {
-        printTree(child);
-    }
-}
-
 int main() {
 
     TreeNode* root = new TreeNode(1);
@@ -1871,8 +1856,49 @@ int main() {
     root->addChild(child2);
     root->addChild(child3);
     child1->addChild(child4);
-    printTree(root);
 
+    return 0;
+}
+```
+### defining tree using map - 
+```cpp
+#include <iostream>
+#include <vector>
+#include <map>
+
+using namespace std;
+
+class TreeNode {
+public:
+    char data;
+    TreeNode(char value) {
+        data = value;
+    }
+};
+
+int main() {
+    TreeNode *a = new TreeNode('A');
+    TreeNode *b = new TreeNode('B');
+    TreeNode *c = new TreeNode('C');
+    TreeNode *d = new TreeNode('D');
+    TreeNode *e = new TreeNode('E');
+    TreeNode *f = new TreeNode('F');
+    TreeNode *g = new TreeNode('G');
+    TreeNode *h = new TreeNode('H');
+    
+    map<TreeNode *, vector<TreeNode*>> tree;
+    
+    tree[a].push_back(b);
+    tree[a].push_back(c);
+    
+    tree[b].push_back(d);
+    tree[b].push_back(e);
+    
+    tree[c].push_back(f);
+    
+    tree[d].push_back(g);
+    tree[d].push_back(h);
+    
     return 0;
 }
 ```
