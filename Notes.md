@@ -1822,3 +1822,6 @@ int main() {
 ```
 **note** - I used stack library but we can also manually impliment it. 
 - try question number 155,735,844 from leetcode 
+---
+## Trees - 
+- notes on trees are [here](./2-4-2026/DS-UNIT-45.pptx)
