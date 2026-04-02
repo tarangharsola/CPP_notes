@@ -1825,3 +1825,54 @@ int main() {
 ---
 ## Trees - 
 - notes on trees are [here](./2-4-2026/DS-UNIT-45.pptx)
+### printing using recursion - 
+```cpp
+#include<iostream>
+#include<vector>
+using namespace std;
+
+class TreeNode {
+public:
+    int data;
+    vector<TreeNode*> children;
+
+    TreeNode(int value) {
+        data = value;
+    }
+
+    void addChild(TreeNode* child) {
+        children.push_back(child);
+    }
+};
+
+
+void printTree(TreeNode* root) {
+    if (root == NULL) return;
+
+    cout << root->data << " -> ";
+    for (auto child : root->children) {
+        cout << child->data << " ";
+    }
+    cout << endl;
+
+    for (auto child : root->children) {
+        printTree(child);
+    }
+}
+
+int main() {
+
+    TreeNode* root = new TreeNode(1);
+    TreeNode* child1 = new TreeNode(2);
+    TreeNode* child2 = new TreeNode(3);
+    TreeNode* child3 = new TreeNode(4);
+    TreeNode* child4 = new TreeNode(5);
+    root->addChild(child1);
+    root->addChild(child2);
+    root->addChild(child3);
+    child1->addChild(child4);
+    printTree(root);
+
+    return 0;
+}
+```
