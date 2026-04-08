@@ -1902,3 +1902,47 @@ int main() {
     return 0;
 }
 ```
+## defining binary tree -
+```cpp
+#include <iostream>
+using namespace std;
+
+class TreeNode {
+public:
+    char data;
+    TreeNode* left;
+    TreeNode* right;
+
+    TreeNode(char value) {
+        data = value;
+        left = NULL;
+        right = NULL;
+    }
+};
+
+
+int main() {
+
+    TreeNode *a = new TreeNode('A');
+    TreeNode *b = new TreeNode('B');
+    TreeNode *c = new TreeNode('C');
+    TreeNode *d = new TreeNode('D');
+    TreeNode *e = new TreeNode('E');
+    TreeNode *f = new TreeNode('F');
+    TreeNode *g = new TreeNode('G');
+    TreeNode *h = new TreeNode('H');
+    a->left = b;
+    a->right = c;
+
+    b->left = d;
+    b->right = e;
+
+    c->right = f;
+
+    d->left = g;
+    d->right = h;
+
+    return 0;
+}
+```
+- for all the tree codes discussed on 4th and 7th april are[here](./Tree/)
