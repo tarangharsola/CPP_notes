@@ -2125,3 +2125,4 @@ After deletion of 20: 30 40 50 60 70 80
 After insertion of 25: 25 30 40 50 60 70 80 
 Node 25 found in the BST.
 ```
+- note the above code is taken from [GFG](https://www.geeksforgeeks.org/cpp/cpp-binary-search-tree/)
