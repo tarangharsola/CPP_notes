@@ -2126,3 +2126,5 @@ After insertion of 25: 25 30 40 50 60 70 80
 Node 25 found in the BST.
 ```
 - note the above code is taken from [GFG](https://www.geeksforgeeks.org/cpp/cpp-binary-search-tree/)
+- whenever you do inorder traversal of a BST you get sorted values.
+- left most node is the smallest node and the right most value is largest node in terms of value. 
