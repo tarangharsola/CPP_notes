@@ -2128,3 +2128,99 @@ Node 25 found in the BST.
 - note the above code is taken from [GFG](https://www.geeksforgeeks.org/cpp/cpp-binary-search-tree/)
 - whenever you do inorder traversal of a BST you get sorted values.
 - left most node is the smallest node and the right most value is largest node in terms of value. 
+### All the type of traversal in a BST - 
+```cpp
+#include<iostream>
+#include<vector>
+using namespace std;
+class bst{
+public:
+    int data;
+    bst* right;
+    bst* left;
+};
+bst* createNode(int data){
+    bst* newNode = new bst();
+    newNode->data = data;
+    newNode->left = newNode->right = nullptr;
+    cout<<"node created"<<endl;
+    return newNode;
+}
+bst* insertNode(bst* root, int data){
+    if (root == nullptr) {
+        return createNode(data);
+    }
+    if (data < root->data) {
+        root->left = insertNode(root->left, data);
+    }
+    else if (data > root->data) {
+        root->right = insertNode(root->right, data);
+    }
+    return root;
+}
+void inorderTraversal(bst* root){
+    if (root != nullptr) {
+        inorderTraversal(root->left);
+        cout << root->data << " ";
+        inorderTraversal(root->right);
+    }
+}
+
+// Root -> Left -> Right
+void preorderTraversal(bst* root){
+    if (root != nullptr) {
+        cout << root->data << " ";
+        preorderTraversal(root->left);
+        preorderTraversal(root->right);
+    }
+}
+
+// Left -> Right -> Root
+void postorderTraversal(bst* root){
+    if (root != nullptr) {
+        postorderTraversal(root->left);
+        postorderTraversal(root->right);
+        cout << root->data << " ";
+    }
+}
+
+bst* searchNode(bst* root, int key){
+    if (root == nullptr || root->data == key) {
+        return root;
+    }
+    if (root->data < key) {
+        return searchNode(root->right, key);
+    }
+    return searchNode(root->left, key);
+}
+int main(){
+    bst* root = nullptr;
+    root = insertNode(root,12);
+    root = insertNode(root,6);
+    root = insertNode(root,1);
+    root = insertNode(root,89);
+    root = insertNode(root,4);
+    root = insertNode(root,36);
+    root = insertNode(root,8);
+
+    cout << "Inorder Traversal: ";
+    inorderTraversal(root);
+    cout << endl;
+
+    cout << "Preorder Traversal: ";
+    preorderTraversal(root);
+    cout << endl;
+
+    cout << "Postorder Traversal: ";
+    postorderTraversal(root);
+    cout << endl;
+
+    bst* found = searchNode(root, 25);
+    if (found != nullptr){
+        cout << "Node 25 found in the BST." << endl;
+    }
+    else {
+        cout << "Node 25 not found in the BST." << endl;
+    }
+}
+```
