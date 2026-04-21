@@ -2233,6 +2233,165 @@ int main(){
 ```
 ___
 ### Deletion from BST - 
+- we will have 3 cases here. They are - 
+1. node with no child 
+2. node with one child 
+3. node with 2 child 
 ```cpp
+#include<iostream>
+using namespace std;
 
+class bst{
+public:
+    int data;
+    bst* left;
+    bst* right;
+};
+
+bst* createNode(int data){
+    bst* newNode = new bst();
+    newNode->data = data;
+    newNode->left = newNode->right = nullptr;
+    cout<<"node created"<<endl;
+    return newNode;
+}
+
+bst* insertNode(bst* root, int data){
+    if (root == nullptr) return createNode(data);
+
+    if (data < root->data)
+        root->left = insertNode(root->left, data);
+    else if (data > root->data)
+        root->right = insertNode(root->right, data);
+
+    return root;
+}
+
+void inorderTraversal(bst* root){
+    if (root != nullptr) {
+        inorderTraversal(root->left);
+        cout << root->data << " ";
+        inorderTraversal(root->right);
+    }
+}
+
+void preorderTraversal(bst* root){
+    if (root != nullptr) {
+        cout << root->data << " ";
+        preorderTraversal(root->left);
+        preorderTraversal(root->right);
+    }
+}
+
+void postorderTraversal(bst* root){
+    if (root != nullptr) {
+        postorderTraversal(root->left);
+        postorderTraversal(root->right);
+        cout << root->data << " ";
+    }
+}
+
+void searchNode(bst* root, int key){
+    if (root == nullptr){
+        cout << "Not Found" << endl;
+        return;
+    }
+
+    if (root->data == key){
+        cout << "Found" << endl;
+        return;
+    }
+
+    if (key < root->data)
+        searchNode(root->left, key);
+    else
+        searchNode(root->right, key);
+}
+
+bst* deleteNode(bst* root, int key){
+
+    if(root == nullptr) return root;
+
+    if(key < root->data)
+        root->left = deleteNode(root->left, key);
+
+    else if(key > root->data)
+        root->right = deleteNode(root->right, key);
+
+    else{
+        // Case 1: no child
+        if(root->left == nullptr && root->right == nullptr){
+            delete root;
+            return nullptr;
+        }
+
+        // Case 2: one child (right)
+        else if(root->left == nullptr){
+            bst* temp = root->right;
+            delete root;
+            return temp;
+        }
+
+        // Case 2: one child (left)
+        else if(root->right == nullptr){
+            bst* temp = root->left;
+            delete root;
+            return temp;
+        }
+
+        // Case 3: two children
+        else{
+            // find inorder successor manually
+            bst* parent = root;
+            bst* succ = root->right;
+
+            while(succ->left != nullptr){
+                parent = succ;
+                succ = succ->left;
+            }
+
+            root->data = succ->data;
+
+            if(parent->left == succ)
+                parent->left = deleteNode(succ, succ->data);
+            else
+                parent->right = deleteNode(succ, succ->data);
+        }
+    }
+
+    return root;
+}
+
+int main(){
+    bst* root = nullptr;
+
+    root = insertNode(root,12);
+    root = insertNode(root,6);
+    root = insertNode(root,1);
+    root = insertNode(root,89);
+    root = insertNode(root,4);
+    root = insertNode(root,36);
+    root = insertNode(root,8);
+
+    cout << "Inorder: ";
+    inorderTraversal(root);
+    cout << endl;
+
+    cout << "Preorder: ";
+    preorderTraversal(root);
+    cout << endl;
+
+    cout << "Postorder: ";
+    postorderTraversal(root);
+    cout << endl;
+
+    cout << "Search 25: ";
+    searchNode(root,25);
+
+    root = deleteNode(root,6);
+
+    cout << "After Deletion: ";
+    inorderTraversal(root);
+    cout << endl;
+}
 ```
