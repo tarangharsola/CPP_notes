@@ -2133,12 +2133,14 @@ Node 25 found in the BST.
 #include<iostream>
 #include<vector>
 using namespace std;
+
 class bst{
 public:
     int data;
     bst* right;
     bst* left;
 };
+
 bst* createNode(int data){
     bst* newNode = new bst();
     newNode->data = data;
@@ -2146,6 +2148,7 @@ bst* createNode(int data){
     cout<<"node created"<<endl;
     return newNode;
 }
+
 bst* insertNode(bst* root, int data){
     if (root == nullptr) {
         return createNode(data);
@@ -2158,6 +2161,7 @@ bst* insertNode(bst* root, int data){
     }
     return root;
 }
+
 void inorderTraversal(bst* root){
     if (root != nullptr) {
         inorderTraversal(root->left);
@@ -2166,7 +2170,6 @@ void inorderTraversal(bst* root){
     }
 }
 
-// Root -> Left -> Right
 void preorderTraversal(bst* root){
     if (root != nullptr) {
         cout << root->data << " ";
@@ -2175,7 +2178,6 @@ void preorderTraversal(bst* root){
     }
 }
 
-// Left -> Right -> Root
 void postorderTraversal(bst* root){
     if (root != nullptr) {
         postorderTraversal(root->left);
@@ -2184,17 +2186,28 @@ void postorderTraversal(bst* root){
     }
 }
 
-bst* searchNode(bst* root, int key){
-    if (root == nullptr || root->data == key) {
-        return root;
+void searchNode(bst* root, int key){
+    if (root == nullptr){
+        cout << "Node " << key << " not found in the BST." << endl;
+        return;
     }
-    if (root->data < key) {
-        return searchNode(root->right, key);
+
+    if (root->data == key){
+        cout << "Node " << key << " found in the BST." << endl;
+        return;
     }
-    return searchNode(root->left, key);
+
+    if (key < root->data){
+        searchNode(root->left, key);
+    }
+    else{
+        searchNode(root->right, key);
+    }
 }
+
 int main(){
     bst* root = nullptr;
+
     root = insertNode(root,12);
     root = insertNode(root,6);
     root = insertNode(root,1);
@@ -2215,12 +2228,11 @@ int main(){
     postorderTraversal(root);
     cout << endl;
 
-    bst* found = searchNode(root, 25);
-    if (found != nullptr){
-        cout << "Node 25 found in the BST." << endl;
-    }
-    else {
-        cout << "Node 25 not found in the BST." << endl;
-    }
+    searchNode(root, 25);
 }
+```
+___
+### Deletion from BST - 
+```cpp
+
 ```
