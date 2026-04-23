@@ -2238,4 +2238,122 @@ ___
 2. node with one child 
 3. node with 2 child 
 ```cpp
+#include<iostream>
+#include<vector>
+using namespace std;
+
+class bst{
+public:
+    int data;
+    bst* right;
+    bst* left;
+};
+
+bst* createNode(int data){
+    bst* newNode = new bst();
+    newNode->data = data;
+    newNode->left = newNode->right = nullptr;
+    return newNode;
+}
+
+bst* insertNode(bst* root, int data){
+    if (root == nullptr) {
+        return createNode(data);
+    }
+    if (data < root->data) {
+        root->left = insertNode(root->left, data);
+    }
+    else if (data > root->data) {
+        root->right = insertNode(root->right, data);
+    }
+    return root;
+}
+
+void inorderTraversal(bst* root){
+    if (root != nullptr) {
+        inorderTraversal(root->left);
+        cout << root->data << " ";
+        inorderTraversal(root->right);
+    }
+}
+
+bst* deleteNode(bst* root, int key){
+    if (root == nullptr) return root;
+
+    if (key < root->data) {
+        root->left = deleteNode(root->left, key);
+    }
+    else if (key > root->data) {
+        root->right = deleteNode(root->right, key);
+    }
+    else {
+        // Case 1: no child
+        if (root->left == nullptr && root->right == nullptr){
+            delete root;
+            return nullptr;
+        }
+        // Case 2: one child (right)
+        else if (root->left == nullptr){
+            bst* temp = root->right;
+            delete root;
+            return temp;
+        }
+        // Case 2: one child (left)
+        else if (root->right == nullptr){
+            bst* temp = root->left;
+            delete root;
+            return temp;
+        }
+        // Case 3: two children
+        else{
+            bst* temp = root->right;
+            while (temp->left != nullptr){
+                temp = temp->left;
+            }
+            root->data = temp->data;
+            root->right = deleteNode(root->right, temp->data);
+        }
+    }
+    return root;
+}
+
+int main(){
+    bst* root = nullptr;
+
+    root = insertNode(root,12);
+    root = insertNode(root,6);
+    root = insertNode(root,1);
+    root = insertNode(root,89);
+    root = insertNode(root,4);
+    root = insertNode(root,36);
+    root = insertNode(root,8);
+
+    cout << "Initial Tree: ";
+    inorderTraversal(root);
+    cout << endl;
+
+    // 1. Delete leaf node
+    cout << "Delete leaf (8): ";
+    root = deleteNode(root, 8);
+    inorderTraversal(root);
+    cout << endl;
+
+    // 2. Delete node with one child
+    cout << "Delete one-child node (1): ";
+    root = deleteNode(root, 1);
+    inorderTraversal(root);
+    cout << endl;
+
+    // 3. Delete node with two children
+    cout << "Delete two-children node (6): ";
+    root = deleteNode(root, 6);
+    inorderTraversal(root);
+    cout << endl;
+
+    // 4. Delete root node
+    cout << "Delete root (12): ";
+    root = deleteNode(root, 12);
+    inorderTraversal(root);
+    cout << endl;
+}
 ```
