@@ -2357,3 +2357,5 @@ int main(){
     cout << endl;
 }
 ```
+- Successor → leftmost of right subtree
+- Predecessor → rightmost of left subtree
