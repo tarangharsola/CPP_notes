@@ -2359,3 +2359,7 @@ int main(){
 ```
 - Successor → leftmost of right subtree
 - Predecessor → rightmost of left subtree
+---
+## level wise search (breadth search first) - 
+```cpp
+```
