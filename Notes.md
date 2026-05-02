@@ -2541,3 +2541,145 @@ int main() {
 }
 ```
 ## directed graph - 
+___
+### Depth first search
+```cpp
+#include <iostream>
+#include <vector>
+#include <map>
+
+using namespace std;
+
+class Graph {
+public:
+    int vertices;
+    vector <vector <int>> v;
+    Graph(int n) {
+        this->vertices = n;
+        v.assign(n, vector<int>(n, 0));
+    }
+
+    void addEdge(int x, int y) {
+        v[x][y] = 1;
+        v[y][x] = 1;
+    }
+
+    void print() {
+        for(int i=0;i<vertices;i++) {
+            for(int j=0;j<vertices;j++) {
+                cout << v[i][j] << " ";
+            }
+            cout << endl;
+        }
+    }
+
+    vector <int> getNeighbours(int node) {
+        vector <int> neighbours;
+        for(int i=0;i<vertices;i++) {
+            if(v[i][node] == 1) {
+                neighbours.push_back(i);
+            }
+        }
+
+        return neighbours;
+    }
+};
+
+void dfs(Graph g, int node, map <int, bool> &visited, vector <int> &result) {
+    visited[node] = true;
+    result.push_back(node);
+    vector<int> x = g.getNeighbours(node);
+    for(auto &&i : x) {
+        if(!visited[i]) {
+            dfs(g, i, visited, result);
+        }
+    }
+}
+
+int main() {
+    Graph g(4);
+    g.addEdge(0, 1);
+    g.addEdge(0, 2);
+    g.addEdge(1, 3);
+
+    g.print();
+    map <int, bool> visited;
+    vector <int> result;
+    
+    dfs(g, 2, visited, result);
+    
+    cout << endl;
+    
+    for(int i: result) {
+        cout << i << " ";
+    }
+}
+```
+### No of connected graphs - 
+```cpp 
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+class Graph {
+public:
+    int vertices;
+    vector <vector <int>> v;
+    Graph(int n) {
+        this->vertices = n;
+        v.assign(n, vector<int>(n, 0));
+    }
+
+    void addEdge(int x, int y) {
+        v[x][y] = 1;
+        v[y][x] = 1;
+    }
+    
+    void addEdge(int x) {
+        
+    }
+
+    void print() {
+        for(int i=0;i<vertices;i++) {
+            for(int j=0;j<vertices;j++) {
+                cout << v[i][j] << " ";
+            }
+            cout << endl;
+        }
+    }
+
+    vector <int> getNeighbours(int node) {
+        vector <int> neighbours;
+        for(int i=0;i<vertices;i++) {
+            if(v[i][node] == 1) {
+                neighbours.push_back(i);
+            }
+        }
+
+        return neighbours;
+    }
+};
+
+int main() {
+    Graph g(10);
+    g.addEdge(0, 1);
+    g.addEdge(1, 2);
+    g.addEdge(1, 3);
+    g.addEdge(0, 2);
+    g.addEdge(2, 3);
+    
+    g.addEdge(4, 5);
+    
+    g.addEdge(6);
+    
+    g.addEdge(7, 8);
+    g.addEdge(7, 9);
+
+    g.print();
+    
+}
+```
+# Heap - 
+1. Min heap 
+2. Max heap
