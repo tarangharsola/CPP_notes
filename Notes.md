@@ -2749,7 +2749,7 @@ int main() {
     h.insert(20);
     h.insert(2);
 
-    h.printHeap();   // Min heap
+    h.printHeap();
 
     cout << h.getMin() << endl;
 
