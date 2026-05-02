@@ -2722,14 +2722,6 @@ public:
         heapifyUp(heap.size() - 1);
     }
 
-    void deleteMin() {
-        if(heap.empty()) return;
-
-        heap[0] = heap.back();
-        heap.pop_back();
-        heapifyDown(0);
-    }
-
     int getMin() {
         if(heap.empty()) return -1;
         return heap[0];
@@ -2753,7 +2745,6 @@ int main() {
 
     cout << h.getMin() << endl;
 
-    h.deleteMin();
     h.printHeap();
 }
 ```
