@@ -2619,6 +2619,7 @@ int main() {
 ```cpp 
 #include <iostream>
 #include <vector>
+#include <map>
 
 using namespace std;
 
@@ -2661,6 +2662,36 @@ public:
     }
 };
 
+void dfs(Graph g, int node, map <int, bool> &visited, vector <int> &result) {
+    visited[node] = true;
+    result.push_back(node);
+    vector<int> x = g.getNeighbours(node);
+    for(auto &&i : x) {
+        if(!visited[i]) {
+            dfs(g, i, visited, result);
+        }
+    }
+}
+
+int connected(Graph g, map <int, bool> &visited, vector <int> &result) {
+    int connected = 0;
+    for (int i = 0;i<g.vertices;i++) {
+        bool b = true;
+        for(int j: result) {
+            if (j==i) {
+                b = false;
+            }
+        }
+        
+        if(b) {
+            connected++;
+            dfs(g, i, visited, result);
+        }
+    }
+    
+    return connected;
+}
+
 int main() {
     Graph g(10);
     g.addEdge(0, 1);
@@ -2678,6 +2709,12 @@ int main() {
 
     g.print();
     
+    map <int, bool> visited;
+    vector <int> result;
+    
+    int c = connected(g, visited, result);
+    
+    cout << c << endl;
 }
 ```
 # Heap - 
@@ -2727,3 +2764,49 @@ int main() {
 }
 ```
 2. Max heap - 
+```cpp
+#include <bits/stdc++.h>
+using namespace std;
+
+class maxHeap {
+    vector<int> a;
+
+    void exchange(int i) {
+        while(i > 0 && a[(i - 1) / 2] < a[i]) {
+            swap(a[i], a[(i - 1) / 2]);
+            i = (i - 1) / 2;
+        }
+    }
+
+public:
+    void insert(int x) {
+        a.push_back(x);
+        exchange(a.size() - 1);
+    }
+
+    int getmax() {
+        if(a.empty()) return -1;
+        return a[0];
+    }
+
+    void print() {
+        for(int x : a) cout << x << " ";
+        cout << endl;
+    }
+};
+
+int main() {
+    maxHeap h;
+
+    h.insert(10);
+    h.insert(5);
+    h.insert(20);
+    h.insert(2);
+
+    cout << "Print the whole tree - ";
+    h.print();
+
+    cout << "maximum of the tree - ";
+    cout << h.getmax() << endl;
+}
+```
