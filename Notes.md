@@ -2686,10 +2686,10 @@ int main() {
 #include <bits/stdc++.h>
 using namespace std;
 
-class Heap {
+class minHeap {
     vector<int> a;
 
-    void up(int i) {
+    void exchange(int i) {
         while(i > 0 && a[(i - 1) / 2] > a[i]) {
             swap(a[i], a[(i - 1) / 2]);
             i = (i - 1) / 2;
@@ -2697,12 +2697,12 @@ class Heap {
     }
 
 public:
-    void add(int x) {
+    void insert(int x) {
         a.push_back(x);
-        up(a.size() - 1);
+        exchange(a.size() - 1);
     }
 
-    int top() {
+    int getmin() {
         if(a.empty()) return -1;
         return a[0];
     }
@@ -2711,18 +2711,19 @@ public:
         for(int x : a) cout << x << " ";
         cout << endl;
     }
+
 };
 
 int main() {
-    Heap h;
-
-    h.add(10);
-    h.add(5);
-    h.add(20);
-    h.add(2);
-
-    h.print();   // heap
-    cout << h.top() << endl;  // smallest
+    minHeap h;
+    h.insert(10);
+    h.insert(5);
+    h.insert(20);
+    h.insert(2);
+    cout<< "Print the whole tree - ";
+    h.print();
+    cout<< "minimum of the tree - ";
+    cout << h.getmin() << endl;  
 }
 ```
 2. Max heap - 
