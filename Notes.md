@@ -2686,66 +2686,43 @@ int main() {
 #include <bits/stdc++.h>
 using namespace std;
 
-class MinHeap {
-    vector<int> heap;
+class Heap {
+    vector<int> a;
 
-    void heapifyUp(int i) {
-        while(i > 0 && heap[(i - 1) / 2] > heap[i]) {
-            swap(heap[i], heap[(i - 1) / 2]);
+    void up(int i) {
+        while(i > 0 && a[(i - 1) / 2] > a[i]) {
+            swap(a[i], a[(i - 1) / 2]);
             i = (i - 1) / 2;
         }
     }
 
-    void heapifyDown(int i) {
-        int n = heap.size();
-        while(true) {
-            int smallest = i;
-            int left = 2 * i + 1;
-            int right = 2 * i + 2;
-
-            if(left < n && heap[left] < heap[smallest])
-                smallest = left;
-
-            if(right < n && heap[right] < heap[smallest])
-                smallest = right;
-
-            if(smallest == i) break;
-
-            swap(heap[i], heap[smallest]);
-            i = smallest;
-        }
-    }
-
 public:
-    void insert(int val) {
-        heap.push_back(val);
-        heapifyUp(heap.size() - 1);
+    void add(int x) {
+        a.push_back(x);
+        up(a.size() - 1);
     }
 
-    int getMin() {
-        if(heap.empty()) return -1;
-        return heap[0];
+    int top() {
+        if(a.empty()) return -1;
+        return a[0];
     }
 
-    void printHeap() {
-        for(int x : heap) cout << x << " ";
+    void print() {
+        for(int x : a) cout << x << " ";
         cout << endl;
     }
 };
 
 int main() {
-    MinHeap h;
+    Heap h;
 
-    h.insert(10);
-    h.insert(5);
-    h.insert(20);
-    h.insert(2);
+    h.add(10);
+    h.add(5);
+    h.add(20);
+    h.add(2);
 
-    h.printHeap();
-
-    cout << h.getMin() << endl;
-
-    h.printHeap();
+    h.print();   // heap
+    cout << h.top() << endl;  // smallest
 }
 ```
 2. Max heap - 
